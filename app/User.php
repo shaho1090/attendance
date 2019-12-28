@@ -15,10 +15,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+//    protected $fillable = [
+//        'name', 'email', 'password', 'family', 'national_code', 'personal_code'
+//    ];
 
+     protected $guarded = [];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,4 +37,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    public function setAdmin()
+    {
+        //    $role = Role::where('title','admin')->get()->first()->id;
+        $this->roles()->attach(Role::where('title','admin')->get()->first()->id);
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->where('title','=','admin')->exists();
+    }
 }
