@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Role;
 use App\User;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -48,8 +50,17 @@ class UserTest extends TestCase
 
     public function test_admin_can_see_users_list_on_users_index_page()
     {
-        $admin = 
+        $admin = $this->signIn();
+       // $admin->addRole('admin')->withPermissions([]);
+
+       // $assistant = app(UserFactory::class)->withRole('assistant')->withPermission(['seeUsers', 'confirmVacation'])->create();
     }
 
+    public function test_user_acting_as()
+    {
+        $user = factory(User::class)->create();
+        //dd($user);
+        $this->actingAs($user);
+    }
 
 }

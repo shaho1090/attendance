@@ -19,7 +19,13 @@ class User extends Authenticatable
 //        'name', 'email', 'password', 'family', 'national_code', 'personal_code'
 //    ];
 
-     protected $guarded = [];
+    protected $guarded = [
+        'name',
+        'family',
+        'national_code',
+        'personal_code',
+        'email',
+        'password'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -46,11 +52,11 @@ class User extends Authenticatable
     public function setAdmin()
     {
         //    $role = Role::where('title','admin')->get()->first()->id;
-        $this->roles()->attach(Role::where('title','admin')->get()->first()->id);
+        $this->roles()->attach(Role::where('title', 'admin')->get()->first()->id);
     }
 
     public function isAdmin()
     {
-        return $this->roles()->where('title','=','admin')->exists();
+        return $this->roles()->where('title', '=', 'admin')->exists();
     }
 }
