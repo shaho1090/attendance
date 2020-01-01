@@ -16,12 +16,12 @@ class CreateShiftsTable extends Migration
         Schema::create('shifts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->time('over_time_before');
-            $table->dateTime('work_start');
-            $table->dateTime('work_end');
-            $table->dateTime('break_time_start');
-            $table->dateTime('break_time_end');
-            $table->time('over_time_after');
+           // $table->time('over_time_before');
+            $table->time('work_start');
+            $table->time('work_end');
+            $table->time('break_time_start');
+            $table->time('break_time_end');
+           // $table->time('over_time_after');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserShiftWorkTable extends Migration
+class CreateShiftUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,18 @@ class CreateUserShiftWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_shift_work', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('shift_user', function (Blueprint $table) {
+          //  $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('work_day_id');
             $table->unsignedBigInteger('shift_id');
-            $table->dateTime('from');
-            $table->dateTime('to');
-            $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade');
-            $table->foreign('work_day_id')
-                ->references('id')->on('work_days')
                 ->onDelete('cascade');
             $table->foreign('shift_id')
                 ->references('id')->on('shifts')
                 ->onDelete('cascade');
+            $table->primary(['user_id','shift_id']);
+
         });
     }
 
@@ -40,6 +35,6 @@ class CreateUserShiftWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_shift_work');
+        Schema::dropIfExists('shift_user');
     }
 }

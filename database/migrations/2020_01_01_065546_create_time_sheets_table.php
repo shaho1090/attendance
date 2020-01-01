@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHolidaysTable extends Migration
+class CreateTimeSheetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateHolidaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('holidays', function (Blueprint $table) {
+        Schema::create('time_sheets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
-            $table->string('description');
+            $table->unsignedBigInteger('user_id');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->unsignedBigInteger('operation_type_id');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateHolidaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('holidays');
+        Schema::dropIfExists('time_sheets');
     }
 }
