@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Work_day extends Model
+class Vacation_type extends Model
 {
-    protected $fillable =['day'];
+    //
 }
