@@ -24,7 +24,7 @@ class CreateTimeSheetsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
             $table->foreign('operation_type_id')
-                ->references('id')->on('operation_type')
+                ->references('id')->on('operation_types')
                 ->onDelete('cascade');
         });
     }
