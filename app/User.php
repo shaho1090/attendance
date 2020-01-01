@@ -43,12 +43,22 @@ class User extends Authenticatable
 
     public function setAdmin()
     {
-        //    $role = Role::where('title','admin')->get()->first()->id;
         $this->roles()->attach(Role::where('title', 'admin')->get()->first()->id);
     }
 
     public function isAdmin()
     {
         return $this->roles()->where('title', '=', 'admin')->exists();
+    }
+
+    public function shifts()
+    {
+        return $this->belongsToMany(Shift::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+
     }
 }
