@@ -20,6 +20,12 @@ class CreateTimeSheetsTable extends Migration
             $table->dateTime('end');
             $table->unsignedBigInteger('operation_type_id');
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->foreign('operation_type_id')
+                ->references('id')->on('operation_type')
+                ->onDelete('cascade');
         });
     }
 
