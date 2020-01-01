@@ -59,7 +59,10 @@ class User extends Authenticatable
     public function attendances()
     {
         return $this->hasMany(Attendance::class);
-
+    }
+    public function vacations()
+    {
+        return $this->hasMany(Demand_vacation::class);
     }
 
     public function vacations()
