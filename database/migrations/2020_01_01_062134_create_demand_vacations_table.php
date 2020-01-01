@@ -22,6 +22,12 @@ class CreateDemandVacationsTable extends Migration
             $table->boolean('is_daily');
             $table->tinyInteger('confirmation');
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->foreign('vacation_type_id')
+                ->references('id')->on('vacation_types')
+                ->onDelete('cascade');
         });
     }
 

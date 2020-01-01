@@ -11,8 +11,23 @@
 |
 */
 
+use App\Day;
+use App\Shift;
+use App\User;
+
 Route::get('/', function () {
-    return view('welcome');
+//    dd(Shift::all());
+//    dd(Day::all());
+    $user = User::find(2);
+    $att = $user->attendances;
+    $currentDate = "2020-01-01";
+    $currentDate = date('Y:m:d',strtotime($currentDate));
+    dd($att->find(1)->entry);
+    //dd($att->where('entry', 'like', $currentDate));
+    $shift = $user->shifts;
+    $demand = $user->vacations;
+
+
 });
 
 Auth::routes();
