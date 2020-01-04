@@ -11,6 +11,7 @@
 |
 */
 
+
 use App\User;
 use Carbon\Carbon;
 
@@ -25,6 +26,32 @@ Route::get('/', function () {
 //       dump($test->days()->where('title','Friday')->pluck('id')->first());
     });
 //    return view('welcome');
+
+
+
+
+    //dd($work_day->toArray());
+
+
+
+//    if(date("Y:m:d",strtotime($attendances->find(1)->entry))===$currentDate){
+//        dd('hello');
+//    }
+//    else{
+//        dd('goodBy');
+//    }
+
+
+
+   /* dd($att->map(function($query) use ($currentDate){
+        $query->where('entry','like',$currentDate)->get();
+     }));*/
+
+
+    //dd($att->where('entry', 'like', $currentDate));
+    $shift = $user->shifts;
+   // $demand = $user->vacations;
+
 
 
 });

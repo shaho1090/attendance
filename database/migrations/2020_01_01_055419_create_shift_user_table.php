@@ -18,7 +18,7 @@ class CreateShiftUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('shift_id');
             $table->dateTime('from');
-            $table->dateTime('to');
+            $table->dateTime('to')->default(null);
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
@@ -26,7 +26,6 @@ class CreateShiftUserTable extends Migration
                 ->references('id')->on('shifts')
                 ->onDelete('cascade');
           //  $table->primary(['user_id','shift_id']);
-
         });
     }
 
