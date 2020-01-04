@@ -14,21 +14,33 @@
 use App\Day;
 use App\Shift;
 use App\User;
+use Carbon\Carbon;
 
 Route::get('/', function () {
 //    dd(Shift::all());
 //    dd(Day::all());
     $user = User::find(2);
 
-    $currentDate = "2020-01-03";
+    $currentDate = "2020-01-01";
     //$currentDate = date('Y:m:d',strtotime($currentDate));
    // dd($currentDate);
-    $work_day = $user->attendances()->where('work_day','=',$currentDate)->get();
-
-    if($work_day->isEmpty()){
-        dd($work_day->isHoliday());
-    }
-    //dd($work_day->toArray());
+    $dayOfWeek = Carbon::parse($currentDate);
+   // dd($dayOfWeek->englishDayOfWeek);
+   // dd($dayOfWeek->dayOfWeek);
+   // $userWorkDay = $user->attendances()->where('work_day','=',$currentDate)->get();
+    //dd($userWorkDay);
+   $userShifts = $user->shifts;
+  //dd($userShifts);
+    $dayShifts = Day::find($dayOfWeek->dayOfWeek)->shifts;
+    $userShiftDay = $dayShifts->intersect($userShifts);
+    $userShiftDay = $userShiftDay->first();
+    dd($userShiftDay);
+// foreach ($userShifts as $shift){
+//   if($shift->days()->where('id',3)){
+//       dump($shift->days()->where('id',3));
+//   }
+ //  dump($shift->days);
+//}
 
 
 
@@ -47,7 +59,7 @@ Route::get('/', function () {
 
 
     //dd($att->where('entry', 'like', $currentDate));
-    $shift = $user->shifts;
+  // $shift = $user->shifts;
    // $demand = $user->vacations;
 
 
