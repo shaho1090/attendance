@@ -11,8 +11,22 @@
 |
 */
 
+use App\User;
+use Carbon\Carbon;
+
 Route::get('/', function () {
-    return view('welcome');
+
+    $currentDate=Carbon::parse('2020-01-05');
+    $currentDate->englishDayOfWeek;
+    $user = User::find(2);
+    $shifts = $user->shifts;
+    dd($user->attendances);
+    $shifts->each(function ($test){
+//       dump($test->days()->where('title','Friday')->pluck('id')->first());
+    });
+//    return view('welcome');
+
+
 });
 
 Auth::routes();
