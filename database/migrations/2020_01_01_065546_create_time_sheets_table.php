@@ -16,7 +16,7 @@ class CreateTimeSheetsTable extends Migration
         Schema::create('time_sheets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->dateTime('finger_print_time');
+            $table->timestamp('finger_print_time');
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')->on('users')

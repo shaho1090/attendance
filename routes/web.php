@@ -17,19 +17,6 @@ use Carbon\Carbon;
 
 Route::get('/', function () {
 
-    $currentDate=Carbon::parse('2020-01-04');
-    //dd($currentDate);
-    //dd($currentDate->englishDayOfWeek);
-     $currentDate->englishDayOfWeek;
-
-    $user = User::find(2);
-
-    $shifts = $user->shifts;
-
-//    dd($user->attendances);
-   $userWorkDay = $user->attendances()->where('work_day','=',$currentDate)->get();
-
-
 });
 
 Auth::routes();

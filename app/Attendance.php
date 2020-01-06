@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-
+    protected $casts=[
+        'entry_time' => 'time',
+        'exit_time' => 'time',
+    ];
 
     protected $guarded = [];
 

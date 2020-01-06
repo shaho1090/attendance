@@ -17,11 +17,10 @@ class CreateShiftsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
            // $table->time('over_time_before');
-            $table->dateTime('work_start');
-            $table->dateTime('work_end');
-            $table->dateTime('break_time_start');
-            $table->dateTime('break_time_end');
-            //$table->time('over_time_after');
+            $table->timestamp('work_start');
+            $table->timestamp('work_end');
+            $table->timestamp('break_time_start');
+            $table->timestamp('break_time_end');
             $table->timestamps();
         });
     }

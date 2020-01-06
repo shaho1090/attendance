@@ -17,8 +17,8 @@ class CreateShiftUserTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('shift_id');
-            $table->date('from');
-            $table->date('to')->default(null);
+            $table->timestamp('from');
+            $table->timestamp('to')->default(null);
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');

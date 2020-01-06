@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Demand_vacation extends Model
+class DemandVacation extends Model
 {
     protected $guarded = [];
 
     public function operation()
     {
-     return $this->belongsTo(Operation_type::class);
+     return $this->belongsTo(OperationType::class);
     }
 
     public function user()
