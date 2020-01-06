@@ -16,17 +16,15 @@ class CreateTimeSheetsTable extends Migration
         Schema::create('time_sheets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->unsignedBigInteger('operation_type_id');
+            $table->dateTime('finger_print_time');
             $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-            $table->foreign('operation_type_id')
-                ->references('id')->on('operation_types')
-                ->onDelete('cascade');
+//            $table->unsignedBigInteger('operation_type_id');
+//            $table->foreign('user_id')
+//                ->references('id')->on('users')
+//                ->onDelete('cascade');
+//            $table->foreign('operation_type_id')
+//                ->references('id')->on('operation_types')
+//                ->onDelete('cascade');
         });
     }
 
