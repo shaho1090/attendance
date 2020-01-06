@@ -18,7 +18,7 @@ class CreateDemandVacationsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vacation_type_id');
             $table->timestamp('start');
-            $table->timestamp('end');
+            $table->timestamp('end')->nullable();
             $table->boolean('is_daily');
             $table->tinyInteger('confirmation');
             $table->timestamps();
