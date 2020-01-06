@@ -16,7 +16,7 @@ class CreateVacationTypesTable extends Migration
         Schema::create('vacation_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->dateTime('amount')->nullable();
+            $table->time('amount')->nullable();
             $table->timestamps();
         });
     }
