@@ -17,9 +17,7 @@ use Carbon\Carbon;
 
 Route::get('/', function () {
 
-
-
-});
+    });
 
 Auth::routes();
 

@@ -18,7 +18,7 @@ class CreateTimeSheetsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->time('start_time');
-            $table->time('end_time');
+            $table->time('end_time')->default(null);
             $table->unsignedBigInteger('operation_type_id');
             $table->timestamps();
             $table->foreign('user_id')

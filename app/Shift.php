@@ -8,6 +8,12 @@ use function foo\func;
 
 class Shift extends Model
 {
+        protected $casts=[
+            'work_start' => 'time',
+            'work_end' => 'time',
+            'break_time_start' => 'time',
+            'break_time_end' => 'time',
+        ];
     protected $fillable = [
         'title',
         'over_time_before',
