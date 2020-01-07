@@ -17,7 +17,7 @@ class CreateHolidaysTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->timestamp('end_time')->nullable();
             $table->boolean('is_daily');
             $table->string('description');
             $table->timestamps();
