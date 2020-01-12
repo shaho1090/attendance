@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TimeSheet extends Model
 {
     protected $casts = [
-        'start_time' => 'time',
-        'end_time' => 'time',
+        'finger_print_time' => 'datetime',
     ];
     protected $guarded = [];
 

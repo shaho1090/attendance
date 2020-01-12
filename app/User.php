@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Shift::class);
     }
 
-    public function attendances()
+    public function timeSheets()
     {
-        return $this->hasMany(Attendance::class);
+        return $this->hasMany(TimeSheet::class);
     }
     public function vacations()
     {
