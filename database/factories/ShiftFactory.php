@@ -9,10 +9,10 @@ use Faker\Generator as Faker;
 $factory->define(Shift::class, function (Faker $faker) {
     return [
         'title'=>$faker->title,
-        'work_start'=>$faker->dateTime,
-        'work_end'=>$faker->dateTime,
-        'break_time_start'=>$faker->dateTime,
-        'break_time_end'=>$faker->dateTime,
+        'work_start'=>$faker->time(),
+        'work_end'=>$faker->time(),
+        'break_time_start'=>$faker->time(),
+        'break_time_end'=>$faker->time(),
 
     ];
 });
