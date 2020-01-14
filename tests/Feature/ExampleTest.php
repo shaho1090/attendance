@@ -53,7 +53,6 @@ class ExampleTest extends TestCase
         $userTimeSheet = $user->timeSheets()->whereDate('finger_print_time', $currentDate)->get();
         $enEx = ($userTimeSheet->chunk(2));
 
-
 // calculate users vacation time in current date
         $leave = DemandVacation::query()
             ->whereDate('start', '<=', $currentDate)->whereDate('end', '>=', $currentDate)
@@ -103,6 +102,8 @@ class ExampleTest extends TestCase
                 $fullTime -= $workingTime;
             }
         }
+
+
         $missingTime = $fullTime - $leaveTime - $holidayTime;
 
 
@@ -157,7 +158,7 @@ class ExampleTest extends TestCase
             ->get();
 
         $leaveTime = 0;
-        if ($leave != null) {
+        if ($leave->count() != 0) {
             if ($leave->first()->is_daily)
                 $leaveTime = 480;
             else
@@ -169,12 +170,34 @@ class ExampleTest extends TestCase
                         $leaveTime -= $endBreak->diffInMinutes($startBreak);
                 }
         }
+//        $leave = $leave->first();
+//
+//
+//        $compare = $userTimeSheet->map(function ($query) use ($leave, $endBreak, $startBreak) {
+//            $test = ([$query->finger_print_time->diffInMinutes($leave->start),$query->finger_print_time->diffInMinutes($leave->end)]);
+//
+////            if ((Carbon::parse(Carbon::parse($leave->start)->format('H:i')) == $endBreak )||
+////                (Carbon::parse(Carbon::parse($leave->end)->format('H:i')) == $startBreak) ||
+////                 (  (Carbon::parse(Carbon::parse($leave->start)->format('H:i'))) < $startBreak && $startBreak < (Carbon::parse(Carbon::parse($leave->end)->format('H:i'))))) {
+////                $test -= 120;
+////            }
+//            dump ($test);
+//        });
+//        dd($compare);
+
+//        $var = $compare->filter(function ($value) {
+//            return $value < 20;
+//        });
+//
+//        if ($var->count() < 1)
+//            dd('please check vacation and timeSheet');
 
 
 //end of calculate users vacation
 
 
         $workingTime = 0;
+
 
         $fullTime = (($startWork)->diffInMinutes($startBreak)) + ($endBreak)->diffInMinutes($endWork);
 
@@ -201,10 +224,41 @@ class ExampleTest extends TestCase
                 $fullTime -= $workingTime;
             }
         }
-        $missingTime = $fullTime - $leaveTime - $holidayTime;
+        dd($fullTime);
 
+        $missingTime = $fullTime - $leaveTime - $holidayTime;
         dd($missingTime);
 
+
+
+
+    }
+
+    public function testCollection()
+    {
+        $timeSheets = collect([
+            ['time' =>date('H:i', strtotime('7:50')), 'label' => 'n'],
+            ['time' =>date('H:i', strtotime('9:00')), 'label' => 'x'],
+            ['time' =>date('H:i', strtotime('10:30')), 'label' => 'n'],
+            ['time' =>date('H:i', strtotime('12:10')), 'label' => 'x'],
+            ['time' =>date('H:i', strtotime('13:55')), 'label' => 'n'],
+            ['time' => date('H:i',strtotime('15:00')), 'label' => 'x'],
+            ['time' => date('H:i',strtotime('16:00')), 'label' => 'n'],
+            ['time' =>date('H:i', strtotime('17:40')), 'label' =>'x'],
+        ]);
+        $shifts = collect([
+            ['time' =>date('H:i', strtotime('8:00')), 'label' => 'ws'],
+            ['time' =>date('H:i', strtotime('12:00')), 'label' => 'bs'],
+            ['time' =>date('H:i', strtotime('14:00')), 'label' => 'be'],
+            ['time' =>date('H:i', strtotime('18:00')), 'label' => 'we'],
+            ]);
+
+        $vacations = collect([
+            ['time' =>date('H:i', strtotime('9:30')), 'label' => 'vs'],
+            ['time' =>date('H:i', strtotime('10:30')), 'label' => 've'],
+        ]);
+       $list = $timeSheets->merge($shifts);
+      dd($list->sortBy('time'));
 
     }
 }
