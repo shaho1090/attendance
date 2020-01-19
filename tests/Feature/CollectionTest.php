@@ -5,17 +5,31 @@ namespace Tests\Feature;
 use App\Day;
 use App\DemandVacation;
 use App\Holiday;
-use App\Shift;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use phpDocumentor\Reflection\Types\Collection;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class CollectionTest extends TestCase
 {
+    /**
+     * @var int
+     */
+    private $attendance = 0;
+    private $vacation = 0;
+    private $shift = 0;
+    private $holiday = 0 ;
+    /**
+     * @var int
+     */
 
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
     public function testBasicTest()
     {
 
@@ -230,39 +244,224 @@ class ExampleTest extends TestCase
         dd($missingTime);
 
 
-
-
     }
 
     public function testCollection()
     {
         $timeSheets = collect([
-            ['time' =>date('H:i', strtotime('7:50')), 'label' => 'n'],
-            ['time' =>date('H:i', strtotime('9:00')), 'label' => 'x'],
-            ['time' =>date('H:i', strtotime('10:30')), 'label' => 'n'],
-            ['time' =>date('H:i', strtotime('12:10')), 'label' => 'x'],
-            ['time' =>date('H:i', strtotime('13:55')), 'label' => 'n'],
-            ['time' => date('H:i',strtotime('15:00')), 'label' => 'x'],
-            ['time' => date('H:i',strtotime('16:00')), 'label' => 'n'],
-            ['time' =>date('H:i', strtotime('17:40')), 'label' =>'x'],
+            ['time' => date('H:i', strtotime('6:00')), 'label' => 'n'],
+            ['time' => date('H:i', strtotime('7:00')), 'label' => 'x'],
+            ['time' => date('H:i', strtotime('7:50')), 'label' => 'n'],
+            ['time' => date('H:i', strtotime('9:35')), 'label' => 'x'],
+            ['time' => date('H:i', strtotime('10:29')), 'label' => 'n'],
+            ['time' => date('H:i', strtotime('12:10')), 'label' => 'x'],
+            ['time' => date('H:i', strtotime('13:55')), 'label' => 'n'],
+            ['time' => date('H:i', strtotime('15:00')), 'label' => 'x'],
+            ['time' => date('H:i', strtotime('16:00')), 'label' => 'n'],
+            ['time' => date('H:i', strtotime('18:10')), 'label' => 'x'],
         ]);
 
-       $shifts = collect([
-            ['time' =>date('H:i', strtotime('8:00')), 'label' => 'ws'],
-            ['time' =>date('H:i', strtotime('12:00')), 'label' => 'bs'],
-            ['time' =>date('H:i', strtotime('14:00')), 'label' => 'be'],
-            ['time' =>date('H:i', strtotime('18:00')), 'label' => 'we'],
-            ]);
+        $shifts = collect([
+            ['time' => date('H:i', strtotime('8:00')), 'label' => 'ws'],
+            ['time' => date('H:i', strtotime('12:00')), 'label' => 'we'],
+            ['time' => date('H:i', strtotime('14:00')), 'label' => 'ws'],
+            ['time' => date('H:i', strtotime('18:00')), 'label' => 'we'],
+        ]);
 
         $vacations = collect([
-            ['time' =>date('H:i', strtotime('9:30')), 'label' => 'vs'],
-            ['time' =>date('H:i', strtotime('10:30')), 'label' => 've'],
+            ['time' => date('H:i', strtotime('9:30')), 'label' => 'vs'],
+            ['time' => date('H:i', strtotime('10:30')), 'label' => 've'],
         ]);
-       $list = $timeSheets->merge($shifts);
-       $list2 = $list->sortBy('time');
-       $sortedList = array_values($list2->toArray());
-       dd($sortedList);
+        $list = $timeSheets->merge($shifts->merge($vacations));
+        $list2 = $list->sortBy('time');
+        $sortedList = array_values($list2->toArray());
+        //dump($sortedList);
+
+        for ($counter = 1; $counter < count($sortedList); $counter++) {
+            $firstItem = $sortedList[$counter - 1];
+            $secondItem = $sortedList[$counter];
+            dump($firstItem['label']);
+            dump($secondItem['label']);
+            $status = $this->checkItems($firstItem, $secondItem);
+            dump($firstItem['time'] . ' ' . $status . ' ' . $secondItem['time']);
+        }
+    }
+
+    public function checkItems(array $firstItem, array $secondItem)
+    {
+        if ($firstItem['label'] == 'n') {
+            $this->attendance = 1;
+        } elseif ($firstItem['label'] == 'x') {
+            $this->attendance = 0;
+        }
+
+        if ($firstItem['label'] == 'ws') {
+            $this->shift = 1;
+        } elseif ($firstItem['label'] == 'we') {
+            $this->shift = 0;
+        }
+
+        if ($firstItem['label'] == 'vs') {
+            $this->vacation = 1;
+        } elseif ($firstItem['label'] == 've') {
+            $this->vacation = 0;
+        }
+
+        if ($firstItem['label'] == 'hs') {
+            $this->vacation = 1;
+        } elseif ($firstItem['label'] == 'he') {
+            $this->vacation = 0;
+        }
+
+        if ($firstItem['label'] == 'n') {
+
+            switch ($secondItem['label']) {
+                case "he":
+                    return 'overTimeHoliday';
+                case "ws":
+                    return 'overTimeBefore';
+                case "x":
+                    if ($this->shift == 1){
+                        return 'workingTime';
+                    }elseif($this->shift == 0){
+                        return 'overtime';
+                    }
+                    break;
+                default:
+                    return 'workingTime';
+            }
+        }
+
+        if ($firstItem['label'] == 'x') {
+
+            switch ($secondItem['label']) {
+                case "ve":
+                    return 'vacation';
+                case "ws":
+                    return 'invalid';
+                case "he":
+                    return 'holiday';
+                case "we":
+                    return 'hurry';
+                case "n":
+                    if ($this->holiday == 1){
+                        return 'holiday';
+                    } elseif($this->vacation == 1) {
+                        return 'vacation';
+                    } elseif($this->shift == 1){
+                        return 'absence';
+                    } else {
+                        return 'invalid';
+                    }
+                    break;
+                default:
+                    return 'absence';
+            }
+        }
+
+        if ($secondItem['label'] == 'n') {
+
+            switch ($firstItem['label']) {
+                case "ws":
+                    return 'delay';
+                case "we":
+                    return 'invalid';
+                case "vs":
+                    return 'vacation';
+                case "hs":
+                    return 'holiday';
+                case "ve":
+                case "he":
+                    if ($shift = 1) return 'absence';
+                    break;
+            }
+        }
+
+        if ($secondItem['label'] == 'x') {
+
+            switch ($firstItem['label']) {
+                case "we":
+                    return "overTimeAfter";
+                case "hs":
+                    return 'overTimeHoliday';
+                case "he":
+                    if ($shift = 1) {
+                        return 'workingTime';
+                    } else {
+                        return 'overtTime';
+                    }
+                    break;
+                default:
+                    return 'workingTime';
+            }
+
+        }
+
+        if ($firstItem['label'] == 'hs' && $secondItem['label'] == 'he') {
+            if($this->attendance == 0) {
+                return 'holiday';
+            }else{
+                return 'overTimeHoliday';
+            }
+        }
+
+        if ($firstItem['label'] = 'vs' && $secondItem['label'] = 've') {
+            if ($this->attendance == 1) {
+                return 'workingTime';
+            } else {
+                return 'vacation';
+            }
+        }
+
+//        $items_A = collect(['ws','he','ve']);
+//        $items_B = collect(['we','hs','vs']);
 
 
+        if ($firstItem['label'] == 'ws') {
+            switch ($secondItem['label']) {
+                case "we":
+                case "hs":
+                case "vs":
+                    if ($this->attendance == 1) {
+                        return 'workingTime';
+                    } else {
+                        return 'absence';
+                    }
+            }
+        }
+
+        if ($secondItem['label'] == 'we') {
+            switch ($firstItem['label']) {
+                case "he":
+                case "ve":
+                    if ($this->attendance == 1) {
+                        return 'workingTime';
+                    } else {
+                        return 'absence';
+                    }
+            }
+        }
+
+
+        /* if ($firstItem['label'] == 'ws') {
+
+             $this->shift = 1;
+
+             if ($secondItem['label'] == 'we') {
+                 if ($this->attendance == 1) {
+                     return 'workingTime';
+                 } else {
+                     return 'absence';
+                 }
+             } elseif ($secondItem['label'] == 'be') {
+                 return 'interrupt';
+             } elseif ($secondItem['label'] == 'he') {
+                 return 'holiday';
+             } elseif ($secondItem['label'] == 've') {
+                 return 'vacation';
+             } else {
+                 return 'absence';
+             }
+         }*/
     }
 }
