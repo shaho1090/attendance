@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Day;
 use App\DemandVacation;
 use App\Holiday;
+use App\Shift;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,6 +14,7 @@ use Tests\TestCase;
 
 class CollectionTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @var int
      */
@@ -243,6 +245,65 @@ class CollectionTest extends TestCase
         $missingTime = $fullTime - $leaveTime - $holidayTime;
         dd($missingTime);
 
+
+    }
+
+    public function test_inserting_data_from_database(){
+
+        $generalShift = Shift::create(['title'=> 'شیفت عمومی']);
+        $serviceShift = Shift::create(['title'=> 'شیفت خدماتی یک']);
+        $generalShift->days()->createMany([
+            ['title'=>'saturday'],
+            ['title'=> 'sunday'],
+            ['title'=> 'monday'],
+            ['title'=> 'tuesday'],
+            ['title'=> 'wednesday'],
+            ['title'=> 'thursday'],
+            ['title'=> 'friday'],
+        ]);
+
+        $serviceShift->days()->createMany([
+            ['title'=>'saturday'],
+            ['title'=> 'sunday'],
+            ['title'=> 'monday'],
+            ['title'=> 'tuesday'],
+            ['title'=> 'wednesday'],
+            ['title'=> 'thursday'],
+            ['title'=> 'friday'],
+        ]);
+
+        //dump($generalShift->days()->get()->all());
+
+        $serviceShift->days()->first()->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $serviceShift->days()->find(2)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $serviceShift->days()->find(3)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $serviceShift->days()->find(4)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+        $serviceShift->days()->find(5)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $serviceShift->days()->find(6)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+        ]);
+
+
+        dump($serviceShift->days()->find(4)->get()->all());
 
     }
 
