@@ -26,7 +26,7 @@ class Shift extends Model
 
     public function days ()
     {
-        return $this->belongsToMany(Day::class);
+        return $this->hasMany(Day::class);
     }
 
     public function users ()
