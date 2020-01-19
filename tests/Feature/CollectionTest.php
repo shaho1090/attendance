@@ -441,27 +441,5 @@ class CollectionTest extends TestCase
                     }
             }
         }
-
-
-        /* if ($firstItem['label'] == 'ws') {
-
-             $this->shift = 1;
-
-             if ($secondItem['label'] == 'we') {
-                 if ($this->attendance == 1) {
-                     return 'workingTime';
-                 } else {
-                     return 'absence';
-                 }
-             } elseif ($secondItem['label'] == 'be') {
-                 return 'interrupt';
-             } elseif ($secondItem['label'] == 'he') {
-                 return 'holiday';
-             } elseif ($secondItem['label'] == 've') {
-                 return 'vacation';
-             } else {
-                 return 'absence';
-             }
-         }*/
     }
 }
