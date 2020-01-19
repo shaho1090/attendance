@@ -15,8 +15,12 @@ class CreateDaysTable extends Migration
     {
         Schema::create('days', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('shift_id');
             $table->string('title');
             $table->timestamps();
+            $table->foreign('shift_id')
+                ->references('id')->on('shifts')
+                ->onDelete('cascade');
         });
     }
 

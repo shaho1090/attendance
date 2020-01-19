@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDayShiftTable extends Migration
+class CreateTimesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateDayShiftTable extends Migration
      */
     public function up()
     {
-        Schema::create('day_shift', function (Blueprint $table) {
-           // $table->bigIncrements('id');
-            $table->unsignedBigInteger('shift_id');
+        Schema::create('times', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('day_id');
+            $table->time('work_start');
+            $table->time('work_end');
+            $table->timestamps();
             $table->foreign('day_id')
                 ->references('id')->on('days')
                 ->onDelete('cascade');
-            $table->foreign('shift_id')
-                ->references('id')->on('shifts')
-                ->onDelete('cascade');
-            $table->primary(['day_id','shift_id']);
         });
     }
 
@@ -34,6 +32,6 @@ class CreateDayShiftTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('day_shift');
+        Schema::dropIfExists('times');
     }
 }
