@@ -53,7 +53,8 @@ class User extends Authenticatable
 
     public function shifts()
     {
-        return $this->belongsToMany(Shift::class);
+        return $this->belongsToMany(Shift::class,'shift_user')
+            ->withPivot('from', 'to');
     }
 
     public function timeSheets()

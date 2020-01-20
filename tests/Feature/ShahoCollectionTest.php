@@ -14,7 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ShahoCollectionTest extends TestCase
+class CollectionTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -252,7 +252,7 @@ class ShahoCollectionTest extends TestCase
 
     //---------------------------************************--------------------------------------
 
-    public function test_reading_data_from_database_and_calculating(){
+    public function test_reading_data_from_database(){
 
         $generalShift = Shift::create(['title'=> 'شیفت عمومی']);
         $serviceShift = Shift::create(['title'=> 'شیفت خدماتی یک']);
@@ -406,7 +406,7 @@ class ShahoCollectionTest extends TestCase
             }
         }
 
-//------ fetching user time shift for a day ---------**********************------------------------------------
+//------fetching user time shift for a day ---------**********************------------------------------------
 
         $workTimes = $karami->shifts()->first()->days()->where('title','sunday')->first()->workTimes()->get();
 
