@@ -15,9 +15,11 @@ class Day extends Model
         return $this->belongsTo(Shift::class);
     }
 
+
     public function workTimes()
     {
         return $this->hasMany(WorkTime::class);
     }
+
 
 }
