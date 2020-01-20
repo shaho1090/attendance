@@ -16,8 +16,8 @@ class CreateWorkTimesTable extends Migration
         Schema::create('work_times', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('day_id');
-            $table->time('work_start');
-            $table->time('work_end');
+            $table->time('start');
+            $table->time('end');
             $table->timestamps();
             $table->foreign('day_id')
                 ->references('id')->on('days')

@@ -16,6 +16,9 @@ use App\User;
 use Carbon\Carbon;
 
 Route::get('/', function () {
+    return view('welcome');
+});
+/*Route::get('/', function () {
     $currentDate = Carbon::parse('2020-01-06');
     $selectedDay = $currentDate->dayOfWeek;
     $dayShift = \App\Day::find($selectedDay)->shifts;
@@ -40,13 +43,13 @@ Route::get('/', function () {
 
     $first = Carbon::parse($userShift->work_start);
     $second = Carbon::parse($userTimeSheet)->format("h:i");
-    dd((Carbon::parse($second)->diffInMinutes($first)));
+    dd((Carbon::parse($second)->diffInMinutes($first)));*/
 
 
 //   dd($userTimeSheet->wheredate('finger_print_time',$date)->get());
 
 
-});
+
 
 Auth::routes();
 

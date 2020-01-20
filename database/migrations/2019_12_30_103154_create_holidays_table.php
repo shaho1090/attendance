@@ -15,11 +15,11 @@ class CreateHolidaysTable extends Migration
     {
         Schema::create('holidays', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
+            $table->string('title')->nullable();
+            $table->timestamp('start');
+            $table->timestamp('end')->nullable();
             $table->boolean('is_daily');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

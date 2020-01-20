@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class DemandVacation extends Model
 {
     protected $casts =[
-        'start_time'=>'time',
-        'end_time'=>'time'
+        'start'=>'time',
+        'end'=>'time'
     ];
     protected $guarded = [];
 
