@@ -10,26 +10,20 @@ use App\TimeSheet;
 use App\User;
 use App\WorkTime;
 use Carbon\Carbon;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CollectionTest extends TestCase
+class ShahoCollectionTest extends TestCase
 {
-
+    use RefreshDatabase;
     /**
      * @var int
      */
-    private $attendanceStatus = 0;
-    private $vacationStatus = 0;
-    private $shiftStatus = 0;
-    private $holidayStatus = 0;
-    private $diff = 0;
-    private $workingTime = 0;
-    private $hurryTime = 0;
-    private $absenceTime = 0;
-    private $vacationTime = 0;
+    private $attendance = 0;
+    private $vacation = 0;
+    private $shift = 0;
+    private $holiday = 0 ;
     /**
      * @var int
      */
@@ -256,14 +250,211 @@ class CollectionTest extends TestCase
 
     }
 
+    //---------------------------************************--------------------------------------
+
+    public function test_reading_data_from_database(){
+
+        $generalShift = Shift::create(['title'=> 'شیفت عمومی']);
+        $serviceShift = Shift::create(['title'=> 'شیفت خدماتی یک']);
+
+        $generalShift->days()->createMany([
+            ['title'=>'saturday'],
+            ['title'=> 'sunday'],
+            ['title'=> 'monday'],
+            ['title'=> 'tuesday'],
+            ['title'=> 'wednesday'],
+            ['title'=> 'thursday'],
+            ['title'=> 'friday'],
+        ]);
+
+        $serviceShift->days()->createMany([
+            ['title'=>'saturday'],
+            ['title'=> 'sunday'],
+            ['title'=> 'monday'],
+            ['title'=> 'tuesday'],
+            ['title'=> 'wednesday'],
+            ['title'=> 'thursday'],
+            ['title'=> 'friday'],
+        ]);
+
+        //dump($generalShift->days()->get()->all());
+
+        $generalShift->days()->find(1)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $generalShift->days()->find(2)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $generalShift->days()->find(3)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $generalShift->days()->find(4)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+        $generalShift->days()->find(5)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        $generalShift->days()->find(6)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','saturday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
+            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','sunday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
+            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','monday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
+            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','tuesday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
+            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','wednesday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
+            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+        ]);
+
+        Day::find($serviceShift->days()->where('title','thursday')->first()->id)->workTimes()->createMany([
+            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+        ]);
+
+        //dump(Day::find($serviceShift->days()->where('title','wednesday')->first()->id)->workTimes()->get()->all());
+        //dump(WorkTime::find($serviceShift->days()->where('title','=','thursday')->first()->id)->get());
+      //  dd(bcrypt('123456789'));
+
+        $karami = User::create([
+            'name'=>'mohammad',
+            'family' =>'karami',
+            'personal_code' => '10116',
+            'national_code' => '3732569855',
+            'password' => '$2y$04$cNg7v8/XOQ11eAFdwBtzAOSkVJ.QuSdISGVYp4Ak7igW1GpaITtry',
+            'email' => 'mohammad.karami@gmail.com',
+        ]);
+
+        $moradpour = User::create([
+            'name'=>'khanom',
+            'family' =>'moradi',
+            'personal_code' => '10110',
+            'national_code' => '3732569555',
+            'password' => '$2y$04$cNg7v8/XOQ11eAFdwBtzAOSkVJ.QuSdISGVYp4Ak7igW1GpaITtry',
+            'email' => 'moradi@gmail.com',
+        ]);
+
+        //dd(Shift::where('title','شیفت عمومی')->first()->id);
+        $karami->shifts()->attach(Shift::where('title','شیفت عمومی')->first()->id,['from' => Carbon::now()]);
+        //dd($karami->shifts()->first()->days()->where('title','sunday')->first()->workTimes()->get());
+        //dd($karami);
+        $moradpour->shifts()->attach(Shift::where('title','شیفت خدماتی یک')->first()->id,['from' => Carbon::now()]);
+        //dd($moradpour->shifts()->first()->days()->where('title','sunday')->first()->workTimes()->get());
+        //dd($user1);
+
+        $karami->timeSheets()->createMany([
+            ['finger_print_time' => date('H:i', strtotime('7:50'))],
+            ['finger_print_time' => date('H:i', strtotime('9:35'))],
+            ['finger_print_time' => date('H:i', strtotime('10:24'))],
+            ['finger_print_time' => date('H:i', strtotime('12:10'))],
+            ['finger_print_time' => date('H:i', strtotime('13:45'))],
+            ['finger_print_time' => date('H:i', strtotime('18:10'))],
+        ]);
+
+        $karami->vacations()->createMany([
+            ['start' => date('H:i', strtotime('9:00'))],
+            ['end' => date('H:i', strtotime('10:00'))],
+        ]);
+
+
+        if(count($karami->timeSheets()->get()) % 2 == 0){
+            dump('even');
+        }else{
+            dd('Data is not even ...please check it out...');
+        };
+
+ //-----fetching user data and labeling them to n or x -------------------*********----------------------------------------------------------
+
+        $userTimeSheet = collect();
+
+        $state = 'n';
+
+        foreach($karami->timeSheets()->get() as $time){
+
+            $userTimeSheet->push([
+                'time' => date('H:i', strtotime($time->finger_print_time)), 'label' => $state
+            ]);
+
+            if ($state == 'n') {
+                $state = 'x';
+            }else{
+                $state = 'n';
+            }
+        }
+
+//------fetching user time shift for a day ---------**********************------------------------------------
+
+        $workTimes = $karami->shifts()->first()->days()->where('title','sunday')->first()->workTimes()->get();
+
+        $userShiftTimes = collect();
+
+        foreach ($workTimes as $time) {
+
+            $userShiftTimes->push([
+                'time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'
+                ]);
+            $userShiftTimes->push([
+                'time' => date('H:i', strtotime($time->work_end)), 'label' => 'we'
+            ]);
+        }
+
+//----- fetching user vacation data from database ----------------------------------***************
+
+        $userVacations = $karami->vacations->get();
+
+        foreach ($workTimes as $time) {
+
+            $userShiftTimes->push([
+                'time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'
+            ]);
+            $userShiftTimes->push([
+                'time' => date('H:i', strtotime($time->work_end)), 'label' => 'we'
+            ]);
+        }
+
+
+
+
+        //dump($userShiftTimes);
+        $userTimeSheet = $userTimeSheet->merge($userShiftTimes);
+        $userTimeSheet = $userTimeSheet->sortBy('time');
+        $finalTimeSheet = array_values($userTimeSheet->toArray());
+        dump($finalTimeSheet);
+
+    }
+
     public function testCollection()
     {
 
         $timeSheets = collect([
             //['time' => date('H:i', strtotime('6:00')), 'label' => 'n'],
-            // ['time' => date('H:i', strtotime('7:00')), 'label' => 'x'],
+           // ['time' => date('H:i', strtotime('7:00')), 'label' => 'x'],
             //['time' => date('H:i', strtotime('7:50')), 'label' => 'n'],
-            // ['time' => date('H:i', strtotime('9:35')), 'label' => 'x'],
+           // ['time' => date('H:i', strtotime('9:35')), 'label' => 'x'],
             ['time' => date('H:i', strtotime('10:29')), 'label' => 'n'],
             ['time' => date('H:i', strtotime('12:10')), 'label' => 'x'],
             ['time' => date('H:i', strtotime('13:55')), 'label' => 'n'],
@@ -283,13 +474,9 @@ class CollectionTest extends TestCase
             ['time' => date('H:i', strtotime('9:30')), 'label' => 'vs'],
             ['time' => date('H:i', strtotime('10:30')), 'label' => 've'],
         ]);
-
         $list = $timeSheets->merge($shifts->merge($vacations));
-
-        dd($list);
         $list2 = $list->sortBy('time');
         $sortedList = array_values($list2->toArray());
-        dd($sortedList);
         //dump($sortedList);
 
         for ($counter = 1; $counter < count($sortedList); $counter++) {
@@ -302,104 +489,30 @@ class CollectionTest extends TestCase
         }
     }
 
-
-
-    public function testGetData()
-    {
-        $currentDate = Carbon::parse('2020-01-06');
-        $selectedDay = $currentDate->dayOfWeek;
-        $list = collect();
-
-
-        $user = User::find(1);
-
-        $workTimes = $user->shifts->first()->days->find($selectedDay)->workTimes;
-
-        $userTimeSheet = $user->timeSheets()->whereDate('finger_print_time', $currentDate)->get()->chunk(2);
-
-        $userVacation = $user->vacations()->whereDate('start', '<=', $currentDate)->whereDate('end', '>=', $currentDate)->get();
-
-        foreach ($userVacation as $vacation) {
-            $list->add([
-                ['time' => date('H:i', strtotime($vacation->start)), 'label' => 'vs'],
-                ['time' => date('H:i', strtotime($vacation->end)), 'label' => 've'],
-            ]);
-        }
-
-        foreach ($userTimeSheet as $timeSheet) {
-            $list->add([
-                ['time' => date('H:i', strtotime($timeSheet->first()->finger_print_time)), 'label' => 'n'],
-                ['time' => date('H:i', strtotime($timeSheet->last()->finger_print_time)), 'label' => 'x'],
-            ]);
-        }
-
-        foreach ($workTimes as $time) {
-            $list->add([
-                ['time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'],
-                ['time' => date('H:i', strtotime($time->work_end)), 'label' => 'we'],
-            ]);
-        }
-        $list = array_values($list->flatten(1)->sortBy('time')->toArray());
-
-        $finalList = collect();
-
-        for ($counter = 1; $counter < count($list); $counter++) {
-            $firstItem = $list[$counter - 1];
-            $secondItem = $list[$counter];
-            $this->diff = Carbon::parse($firstItem['time'])->diffInMinutes($secondItem['time']);
-            $finalList->add([
-                ['item1' => $firstItem['time'], 'item2' => $secondItem['time'], 'value' => $this->diff, 'status' => $this->checkItems($firstItem, $secondItem)]
-            ]);
-
-        }
-
-        dump($finalList->flatten(1));
-        foreach ($finalList->flatten(1) as $list) {
-            if ($list['status'] == 'workingTime') {
-                $this->workingTime += $list['value'];
-            } elseif ($list['status'] == 'hurry') {
-                $this->hurryTime += $list['value'];
-            } elseif ($list['status'] == 'vacation') {
-                $this->vacationTime += $list['value'];
-            } elseif ($list['status'] == 'absence') {
-                $this->absenceTime += $list['value'];
-            }
-        }
-        dd(' کارکرد:' . $this->workingTime, ' تعجیل :' . $this->hurryTime, ' غیبت :' . $this->absenceTime, ' مرخصی :' . $this->vacationTime);
-
-
-    }
-
     public function checkItems(array $firstItem, array $secondItem)
     {
         if ($firstItem['label'] == 'n') {
-            $this->attendanceStatus = 1;
+            $this->attendance = 1;
         } elseif ($firstItem['label'] == 'x') {
-            $this->attendanceStatus = 0;
+            $this->attendance = 0;
         }
 
         if ($firstItem['label'] == 'ws') {
-            $this->shiftStatus = 1;
+            $this->shift = 1;
         } elseif ($firstItem['label'] == 'we') {
-            $this->shiftStatus = 0;
+            $this->shift = 0;
         }
 
         if ($firstItem['label'] == 'vs') {
-            $this->vacationStatus = 1;
+            $this->vacation = 1;
         } elseif ($firstItem['label'] == 've') {
-            $this->vacationStatus = 0;
+            $this->vacation = 0;
         }
 
         if ($firstItem['label'] == 'hs') {
-
-            $this->vacationStatus = 1;
-        } elseif ($firstItem['label'] == 'he') {
-            $this->vacationStatus = 0;
-
             $this->holiday = 1;
         } elseif ($firstItem['label'] == 'he') {
             $this->holiday = 0;
-
         }
 
         if ($firstItem['label'] == 'n') {
@@ -410,9 +523,9 @@ class CollectionTest extends TestCase
                 case "ws":
                     return 'overTimeBefore';
                 case "x":
-                    if ($this->shiftStatus == 1) {
+                    if ($this->shift == 1){
                         return 'workingTime';
-                    } elseif ($this->shiftStatus == 0) {
+                    }elseif($this->shift == 0){
                         return 'overtime';
                     }
                     break;
@@ -433,11 +546,11 @@ class CollectionTest extends TestCase
                 case "we":
                     return 'hurry';
                 case "n":
-                    if ($this->holidayStatus == 1) {
+                    if ($this->holiday == 1){
                         return 'holiday';
-                    } elseif ($this->vacationStatus == 1) {
+                    } elseif($this->vacation == 1) {
                         return 'vacation';
-                    } elseif ($this->shiftStatus == 1) {
+                    } elseif($this->shift == 1){
                         return 'absence';
                     } else {
                         return 'invalid';
@@ -461,7 +574,7 @@ class CollectionTest extends TestCase
                     return 'holiday';
                 case "ve":
                 case "he":
-                    if ($this->shiftStatus == 1) return 'absence';
+                    if ($shift = 1) return 'absence';
                     break;
             }
         }
@@ -474,9 +587,7 @@ class CollectionTest extends TestCase
                 case "hs":
                     return 'overTimeHoliday';
                 case "he":
-
-                    if ($this->shiftStatus == 1) {
-
+                    if ($this->shift == 1) {
                         return 'workingTime';
                     } else {
                         return 'overtTime';
@@ -489,17 +600,15 @@ class CollectionTest extends TestCase
         }
 
         if ($firstItem['label'] == 'hs' && $secondItem['label'] == 'he') {
-            if ($this->attendanceStatus == 0) {
+            if($this->attendance == 0) {
                 return 'holiday';
-            } else {
+            }else{
                 return 'overTimeHoliday';
             }
         }
 
-
         if ($firstItem['label'] == 'vs' && $secondItem['label'] == 've') {
-            if ($this->attendanceStatus == 1) {
-
+            if ($this->attendance == 1) {
                 return 'workingTime';
             } else {
                 return 'vacation';
@@ -515,7 +624,7 @@ class CollectionTest extends TestCase
                 case "we":
                 case "hs":
                 case "vs":
-                    if ($this->attendanceStatus == 1) {
+                    if ($this->attendance == 1) {
                         return 'workingTime';
                     } else {
                         return 'absence';
@@ -527,7 +636,7 @@ class CollectionTest extends TestCase
             switch ($firstItem['label']) {
                 case "he":
                 case "ve":
-                    if ($this->attendanceStatus == 1) {
+                    if ($this->attendance == 1) {
                         return 'workingTime';
                     } else {
                         return 'absence';
@@ -535,6 +644,4 @@ class CollectionTest extends TestCase
             }
         }
     }
-
-
 }
