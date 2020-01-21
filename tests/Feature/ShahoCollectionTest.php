@@ -12,6 +12,7 @@ use App\WorkTime;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ShahoCollectionTest extends TestCase
@@ -254,8 +255,11 @@ class ShahoCollectionTest extends TestCase
 
     public function test_reading_data_from_database(){
 
+        $interestedDate = date('Y-m-d', strtotime('2020-01-01'));
+        //dd($interestedDate);
         $generalShift = Shift::create(['title'=> 'شیفت عمومی']);
         $serviceShift = Shift::create(['title'=> 'شیفت خدماتی یک']);
+
 
         $generalShift->days()->createMany([
             ['title'=>'saturday'],
@@ -280,60 +284,60 @@ class ShahoCollectionTest extends TestCase
         //dump($generalShift->days()->get()->all());
 
         $generalShift->days()->find(1)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
-            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('14:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         $generalShift->days()->find(2)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
-            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('14:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         $generalShift->days()->find(3)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
-            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('14:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         $generalShift->days()->find(4)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
-            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('14:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
         $generalShift->days()->find(5)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
-            ['work_start'=> date('H:i', strtotime('14:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('14:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         $generalShift->days()->find(6)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','saturday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
-            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('13:00'))],
+            ['start'=> date('H:i', strtotime('15:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','sunday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
-            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('13:00'))],
+            ['start'=> date('H:i', strtotime('15:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','monday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
-            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('13:00'))],
+            ['start'=> date('H:i', strtotime('15:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','tuesday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
-            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('13:00'))],
+            ['start'=> date('H:i', strtotime('15:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','wednesday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('13:00'))],
-            ['work_start'=> date('H:i', strtotime('15:00')), 'work_end' =>date('H:i', strtotime('18:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('13:00'))],
+            ['start'=> date('H:i', strtotime('15:00')), 'end' =>date('H:i', strtotime('18:00'))],
         ]);
 
         Day::find($serviceShift->days()->where('title','thursday')->first()->id)->workTimes()->createMany([
-            ['work_start'=> date('H:i', strtotime('8:00')), 'work_end' =>date('H:i', strtotime('12:00'))],
+            ['start'=> date('H:i', strtotime('8:00')), 'end' =>date('H:i', strtotime('12:00'))],
         ]);
 
         //dump(Day::find($serviceShift->days()->where('title','wednesday')->first()->id)->workTimes()->get()->all());
@@ -367,19 +371,38 @@ class ShahoCollectionTest extends TestCase
         //dd($user1);
 
         $karami->timeSheets()->createMany([
-            ['finger_print_time' => date('H:i', strtotime('7:50'))],
-            ['finger_print_time' => date('H:i', strtotime('9:35'))],
-            ['finger_print_time' => date('H:i', strtotime('10:24'))],
-            ['finger_print_time' => date('H:i', strtotime('12:10'))],
-            ['finger_print_time' => date('H:i', strtotime('13:45'))],
-            ['finger_print_time' => date('H:i', strtotime('18:10'))],
+        //    ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 7:50'))],
+          //  ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 10:24'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 12:10'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 13:45'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 18:10'))],
         ]);
 
-        $karami->vacations()->createMany([
-            ['start' => date('H:i', strtotime('9:00'))],
-            ['end' => date('H:i', strtotime('10:00'))],
+
+        DB::table('vacation_types')->insert([
+            ['title'=> 'مرخصی استحقاقی', 'amount'=> 17],
+            ['title'=> 'مرخصی استعلاجی', 'amount'=> 72],
+            ['title'=> 'مرخصی بدون حقوق', 'amount'=> 0],
         ]);
 
+       // dump(DB::table('vacation_types')->get()->all());
+
+        $karami->vacations()->create([
+            'start' => date('Y-m-d H:i', strtotime('2020-01-01 9:00')),
+            'end' => date('Y-m-d H:i', strtotime('2020-01-01 10:00')),
+            'vacation_type_id' => 1,
+            'is_daily'=> 0,
+            'confirmation' => 1,
+        ]);
+
+        DB::table('holidays')->insert([
+            'start'=> date('Y-m-d H:i', strtotime('2020-01-01 8:00')),
+            'end' => date('Y-m-d H:i', strtotime('2020-01-01 9:00')),
+            'is_daily'=> 0,
+        ]);
+
+//-------------------------------------------------------------------------------------------------
 
         if(count($karami->timeSheets()->get()) % 2 == 0){
             dump('even');
@@ -406,7 +429,7 @@ class ShahoCollectionTest extends TestCase
             }
         }
 
-//------fetching user time shift for a day ---------**********************------------------------------------
+//------fetching user time shift for a day ----------**********************------------------------------------
 
         $workTimes = $karami->shifts()->first()->days()->where('title','sunday')->first()->workTimes()->get();
 
@@ -415,35 +438,70 @@ class ShahoCollectionTest extends TestCase
         foreach ($workTimes as $time) {
 
             $userShiftTimes->push([
-                'time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'
+                'time' => date('H:i', strtotime($time->start)), 'label' => 'ws'
                 ]);
             $userShiftTimes->push([
-                'time' => date('H:i', strtotime($time->work_end)), 'label' => 'we'
+                'time' => date('H:i', strtotime($time->end)), 'label' => 'we'
             ]);
         }
 
-//----- fetching user vacation data from database ----------------------------------***************
+//----- fetching user vacation data from database ----------------------------------***************-----
 
-        $userVacations = $karami->vacations->get();
+        $userVacations = collect();
 
-        foreach ($workTimes as $time) {
+        $vacations = $karami->vacations()->get();
 
-            $userShiftTimes->push([
-                'time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'
+        foreach ($vacations as $time) {
+
+            $userVacations->push([
+                'time' => date('H:i', strtotime($time->start)), 'label' => 'vs'
             ]);
-            $userShiftTimes->push([
-                'time' => date('H:i', strtotime($time->work_end)), 'label' => 'we'
+            $userVacations->push([
+                'time' => date('H:i', strtotime($time->end)), 'label' => 've'
+            ]);
+        }
+
+        //dd($userVacations);
+//------fetching data from holiday table ---------------*******************************------------------
+
+        $holidayTimes = collect();
+
+
+
+        $holidays = Holiday::whereDate('start',$interestedDate)->get();
+       // dd($holidays->start);
+        foreach($holidays as $time){
+            $holidayTimes->push([
+                'time' => date('H:i', strtotime($time->start)), 'label' => 'hs'
+            ]);
+            $holidayTimes->push([
+                'time' => date('H:i', strtotime($time->end)), 'label' => 'he'
             ]);
         }
 
 
-
+//------processing of all data in order to reach valid data and period of time---------------------------
 
         //dump($userShiftTimes);
+
         $userTimeSheet = $userTimeSheet->merge($userShiftTimes);
+
+        $userTimeSheet = $userTimeSheet->merge($userVacations);
+     //  dd($userTimeSheet);
+        $userTimeSheet = $userTimeSheet->merge($holidayTimes);
+
         $userTimeSheet = $userTimeSheet->sortBy('time');
         $finalTimeSheet = array_values($userTimeSheet->toArray());
-        dump($finalTimeSheet);
+        //dd($finalTimeSheet);
+
+        for ($counter = 1; $counter < count($finalTimeSheet); $counter++) {
+            $firstItem = $finalTimeSheet[$counter - 1];
+            $secondItem = $finalTimeSheet[$counter];
+            dump($firstItem['label']);
+            dump($secondItem['label']);
+            $status = $this->checkItems($firstItem, $secondItem);
+            dump($firstItem['time'] . ' ' . $status . ' ' . $secondItem['time']);
+        }
 
     }
 
@@ -455,25 +513,26 @@ class ShahoCollectionTest extends TestCase
            // ['time' => date('H:i', strtotime('7:00')), 'label' => 'x'],
             //['time' => date('H:i', strtotime('7:50')), 'label' => 'n'],
            // ['time' => date('H:i', strtotime('9:35')), 'label' => 'x'],
-            ['time' => date('H:i', strtotime('10:29')), 'label' => 'n'],
-            ['time' => date('H:i', strtotime('12:10')), 'label' => 'x'],
-            ['time' => date('H:i', strtotime('13:55')), 'label' => 'n'],
-            ['time' => date('H:i', strtotime('15:00')), 'label' => 'x'],
-            ['time' => date('H:i', strtotime('16:00')), 'label' => 'n'],
-            ['time' => date('H:i', strtotime('18:10')), 'label' => 'x'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 10:29')), 'label' => 'n'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 12:10')), 'label' => 'x'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 13:55')), 'label' => 'n'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 15:00')), 'label' => 'x'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 16:00')), 'label' => 'n'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 18:10')), 'label' => 'x'],
         ]);
 
         $shifts = collect([
-            ['time' => date('H:i', strtotime('8:00')), 'label' => 'ws'],
-            ['time' => date('H:i', strtotime('12:00')), 'label' => 'we'],
-            ['time' => date('H:i', strtotime('14:00')), 'label' => 'ws'],
-            ['time' => date('H:i', strtotime('18:00')), 'label' => 'we'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 8:00')), 'label' => 'ws'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 12:00')), 'label' => 'we'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 14:00')), 'label' => 'ws'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 18:00')), 'label' => 'we'],
         ]);
 
         $vacations = collect([
-            ['time' => date('H:i', strtotime('9:30')), 'label' => 'vs'],
-            ['time' => date('H:i', strtotime('10:30')), 'label' => 've'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 9:30')), 'label' => 'vs'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 10:30')), 'label' => 've'],
         ]);
+
         $list = $timeSheets->merge($shifts->merge($vacations));
         $list2 = $list->sortBy('time');
         $sortedList = array_values($list2->toArray());
@@ -489,7 +548,67 @@ class ShahoCollectionTest extends TestCase
         }
     }
 
+
     public function checkItems(array $firstItem, array $secondItem)
+    {
+        if ($firstItem['label'] == 'n') {
+            $this->attendance = 1;
+        } elseif ($firstItem['label'] == 'x') {
+            $this->attendance = 0;
+        }
+
+        if ($firstItem['label'] == 'ws') {
+            $this->shift = 1;
+        } elseif ($firstItem['label'] == 'we') {
+            $this->shift = 0;
+        }
+
+        if ($firstItem['label'] == 'vs') {
+            $this->vacation = 1;
+        } elseif ($firstItem['label'] == 've') {
+            $this->vacation = 0;
+        }
+
+        if ($firstItem['label'] == 'hs') {
+            $this->holiday = 1;
+        } elseif ($firstItem['label'] == 'he') {
+            $this->holiday = 0;
+        }
+
+        if ($this->attendance == 0 && $this->shift == 0) {
+            return 'invalid';
+        }
+
+        if ($this->attendance == 0 && $this->shift == 1) {
+
+            if ($this->vacation == 0 && $this->holiday == 0) {
+                return 'absence';
+            }
+
+            if ($this->vacation == 1 && $this->holiday == 0) {
+                return 'vacation';
+            }
+
+            if ($this->holiday == 1) {
+                return 'holiday';
+            }
+        }
+
+        if ($this->attendance == 1 && $this->shift == 0) {
+            return 'overTime';
+        }
+
+        if ($this->attendance == 1 && $this->shift == 1) {
+            if ($this->holiday == 1) {
+                return 'overTime';
+            } else {
+                return 'workingTime';
+            }
+        }
+    }
+
+
+    public function checkItems_01(array $firstItem, array $secondItem)
     {
         if ($firstItem['label'] == 'n') {
             $this->attendance = 1;
@@ -634,6 +753,8 @@ class ShahoCollectionTest extends TestCase
 
         if ($secondItem['label'] == 'we') {
             switch ($firstItem['label']) {
+                case "hs":
+                    return 'holiday';
                 case "he":
                 case "ve":
                     if ($this->attendance == 1) {
