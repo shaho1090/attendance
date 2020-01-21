@@ -371,8 +371,8 @@ class ShahoCollectionTest extends TestCase
         //dd($user1);
 
         $karami->timeSheets()->createMany([
-            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 7:50'))],
-            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35'))],
+        //    ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 7:50'))],
+          //  ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 10:24'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 12:10'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 13:45'))],
@@ -395,6 +395,13 @@ class ShahoCollectionTest extends TestCase
             'is_daily'=> 0,
             'confirmation' => 1,
         ]);
+
+        DB::table('holidays')->insert([
+            'start'=> date('Y-m-d H:i', strtotime('2020-01-01 8:00')),
+            'end' => date('Y-m-d H:i', strtotime('2020-01-01 9:00')),
+            'is_daily'=> 0,
+        ]);
+
 //-------------------------------------------------------------------------------------------------
 
         if(count($karami->timeSheets()->get()) % 2 == 0){
@@ -459,11 +466,7 @@ class ShahoCollectionTest extends TestCase
 
         $holidayTimes = collect();
 
-        DB::table('holidays')->insert([
-            'start'=> date('Y-m-d H:i', strtotime('2020-01-01 17:00')),
-            'end' => date('Y-m-d H:i', strtotime('2020-01-01 18:00')),
-            'is_daily'=> 0,
-        ]);
+
 
         $holidays = Holiday::whereDate('start',$interestedDate)->get();
        // dd($holidays->start);
@@ -545,7 +548,67 @@ class ShahoCollectionTest extends TestCase
         }
     }
 
+
     public function checkItems(array $firstItem, array $secondItem)
+    {
+        if ($firstItem['label'] == 'n') {
+            $this->attendance = 1;
+        } elseif ($firstItem['label'] == 'x') {
+            $this->attendance = 0;
+        }
+
+        if ($firstItem['label'] == 'ws') {
+            $this->shift = 1;
+        } elseif ($firstItem['label'] == 'we') {
+            $this->shift = 0;
+        }
+
+        if ($firstItem['label'] == 'vs') {
+            $this->vacation = 1;
+        } elseif ($firstItem['label'] == 've') {
+            $this->vacation = 0;
+        }
+
+        if ($firstItem['label'] == 'hs') {
+            $this->holiday = 1;
+        } elseif ($firstItem['label'] == 'he') {
+            $this->holiday = 0;
+        }
+
+        if ($this->attendance == 0 && $this->shift == 0) {
+            return 'invalid';
+        }
+
+        if ($this->attendance == 0 && $this->shift == 1) {
+
+            if ($this->vacation == 0 && $this->holiday == 0) {
+                return 'absence';
+            }
+
+            if ($this->vacation == 1 && $this->holiday == 0) {
+                return 'vacation';
+            }
+
+            if ($this->holiday == 1) {
+                return 'holiday';
+            }
+        }
+
+        if ($this->attendance == 1 && $this->shift == 0) {
+            return 'overTime';
+        }
+
+        if ($this->attendance == 1 && $this->shift == 1) {
+            if ($this->holiday == 1) {
+                return 'overTime';
+            } else {
+                return 'workingTime';
+            }
+        }
+    }
+
+
+    public function checkItems_01(array $firstItem, array $secondItem)
     {
         if ($firstItem['label'] == 'n') {
             $this->attendance = 1;
@@ -690,6 +753,8 @@ class ShahoCollectionTest extends TestCase
 
         if ($secondItem['label'] == 'we') {
             switch ($firstItem['label']) {
+                case "hs":
+                    return 'holiday';
                 case "he":
                 case "ve":
                     if ($this->attendance == 1) {
