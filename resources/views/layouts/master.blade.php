@@ -182,11 +182,26 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="">کاربران</a></li>
+                        <li><a href="{{ route('users.index')}} ">کاربران</a></li>
                         <li><a href="{{ route('users.create') }}">ثبت کاربر جدید</a></li>
                         <li><a href="">تغییر رمز عبور کاربران </a></li>
                     </ul>
                 </li>
+
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-link"></i> <span>مرخصی و ماموریت</span>
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('users.index')}} ">لیست درخواست ها</a></li>
+                        <li><a href="{{ route('users.create') }}">ثبت درخواست جدید</a></li>
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+
 
             </ul>
             <!-- /.sidebar-menu -->
