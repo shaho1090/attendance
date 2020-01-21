@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::namespace('admin')->prefix('/admin')->group(function (){
+    Route::resource('units','UnitController');
+});
+
 
 Auth::routes();
 

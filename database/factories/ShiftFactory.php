@@ -11,8 +11,5 @@ $factory->define(Shift::class, function (Faker $faker) {
         'title'=>$faker->title,
         'work_start'=>$faker->time(),
         'work_end'=>$faker->time(),
-        'break_time_start'=>$faker->time(),
-        'break_time_end'=>$faker->time(),
-
     ];
 });
