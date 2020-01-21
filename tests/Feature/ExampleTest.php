@@ -263,6 +263,5 @@ class ExampleTest extends TestCase
        $sortedList = array_values($list2->toArray());
        dd($sortedList);
 
-
     }
 }

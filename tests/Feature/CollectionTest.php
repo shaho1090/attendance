@@ -303,7 +303,6 @@ class CollectionTest extends TestCase
     }
 
 
-
     public function testGetData()
     {
         $currentDate = Carbon::parse('2020-01-06');
@@ -332,7 +331,6 @@ class CollectionTest extends TestCase
                 ['time' => date('H:i', strtotime($timeSheet->last()->finger_print_time)), 'label' => 'x'],
             ]);
         }
-
         foreach ($workTimes as $time) {
             $list->add([
                 ['time' => date('H:i', strtotime($time->work_start)), 'label' => 'ws'],
@@ -396,10 +394,9 @@ class CollectionTest extends TestCase
         } elseif ($firstItem['label'] == 'he') {
             $this->vacationStatus = 0;
 
-            $this->holiday = 1;
+            $this->holidayStatus = 1;
         } elseif ($firstItem['label'] == 'he') {
-            $this->holiday = 0;
-
+            $this->holidayStatus = 0;
         }
 
         if ($firstItem['label'] == 'n') {
@@ -505,9 +502,6 @@ class CollectionTest extends TestCase
                 return 'vacation';
             }
         }
-
-//        $items_A = collect(['ws','he','ve']);
-//        $items_B = collect(['we','hs','vs']);
 
 
         if ($firstItem['label'] == 'ws') {
