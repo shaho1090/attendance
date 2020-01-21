@@ -13,6 +13,8 @@
 
 
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,7 +23,10 @@ Route::namespace('admin')->prefix('/admin')->group(function (){
     Route::resource('units','UnitController');
 });
 
+Route::resource('users', 'admin\UsersController');
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
