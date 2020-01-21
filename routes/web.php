@@ -12,6 +12,7 @@
 */
 
 
+use App\Http\Controllers\UsersController;
 use App\User;
 use Carbon\Carbon;
 
@@ -19,7 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('users', 'admin\UsersController');
 
+//Rout::get('');
+//Route::get('/users/index', 'WorkTimesController@index')->name('work-time.index');
+//Route::post('/user/create', 'NewWorkTimeController@store')->name('work-time.start');
+//Route::post('/work-time/stop', 'NewWorkTimeController@destroy')->name('work-time.stop');
+//Route::patch('/work-time/{workTime}/edit', 'WorkTimesController@edit')->name('work-time.edit');
+//Route::put('/work-time/update', 'WorkTimesController@update')->name('work-time.update');
+//Route::delete('/work-time/delete/{workTime}', 'WorkTimesController@destroy')->name('work-time.destroy');
 /*Route::get('/', function () {
     $currentDate = Carbon::parse('2020-01-06');
     $selectedDay = $currentDate->dayOfWeek;

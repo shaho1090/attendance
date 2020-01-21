@@ -82,7 +82,7 @@ desired effect
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">پنل</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b> مدیریت اموال</b></span>
+            <span class="logo-lg"><b>سیستم حضور و غیاب</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -183,7 +183,7 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="">کاربران</a></li>
-                        <li><a href="">ثبت کاربر جدید</a></li>
+                        <li><a href="{{ route('users.create') }}">ثبت کاربر جدید</a></li>
                         <li><a href="">تغییر رمز عبور کاربران </a></li>
                     </ul>
                 </li>
