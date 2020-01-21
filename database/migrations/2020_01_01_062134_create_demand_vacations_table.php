@@ -20,6 +20,7 @@ class CreateDemandVacationsTable extends Migration
             $table->timestamp('start');
             $table->timestamp('end')->nullable();
             $table->boolean('is_daily');
+            $table->boolean('is_mission');
             $table->tinyInteger('confirmation');
             $table->text('description');
             $table->timestamps();
