@@ -371,8 +371,8 @@ class ShahoCollectionTest extends TestCase
         //dd($user1);
 
         $karami->timeSheets()->createMany([
-        //    ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 7:50'))],
-          //  ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 8:30'))],
+            ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 10:24'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 12:10'))],
             ['finger_print_time' => date('Y-m-d H:i', strtotime('2020-01-01 13:45'))],
@@ -388,7 +388,7 @@ class ShahoCollectionTest extends TestCase
 
        // dump(DB::table('vacation_types')->get()->all());
 
-        $karami->vacations()->create([
+        /*$karami->vacations()->create([
             'start' => date('Y-m-d H:i', strtotime('2020-01-01 9:00')),
             'end' => date('Y-m-d H:i', strtotime('2020-01-01 10:00')),
             'vacation_type_id' => 1,
@@ -400,7 +400,7 @@ class ShahoCollectionTest extends TestCase
             'start'=> date('Y-m-d H:i', strtotime('2020-01-01 8:00')),
             'end' => date('Y-m-d H:i', strtotime('2020-01-01 9:00')),
             'is_daily'=> 0,
-        ]);
+        ]);*/
 
 //-------------------------------------------------------------------------------------------------
 
@@ -509,10 +509,10 @@ class ShahoCollectionTest extends TestCase
     {
 
         $timeSheets = collect([
-            //['time' => date('H:i', strtotime('6:00')), 'label' => 'n'],
-           // ['time' => date('H:i', strtotime('7:00')), 'label' => 'x'],
-            //['time' => date('H:i', strtotime('7:50')), 'label' => 'n'],
-           // ['time' => date('H:i', strtotime('9:35')), 'label' => 'x'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 6:00')), 'label' => 'n'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 7:00')), 'label' => 'x'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 7:50')), 'label' => 'n'],
+            ['time' => date('Y-m-d H:i', strtotime('2020-01-01 9:35')), 'label' => 'x'],
             ['time' => date('Y-m-d H:i', strtotime('2020-01-01 10:29')), 'label' => 'n'],
             ['time' => date('Y-m-d H:i', strtotime('2020-01-01 12:10')), 'label' => 'x'],
             ['time' => date('Y-m-d H:i', strtotime('2020-01-01 13:55')), 'label' => 'n'],

@@ -21,6 +21,7 @@ class CreateDemandVacationsTable extends Migration
             $table->timestamp('end')->nullable();
             $table->boolean('is_daily');
             $table->tinyInteger('confirmation');
+            $table->text('description');
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')->on('users')
@@ -38,6 +39,6 @@ class CreateDemandVacationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves');
+        Schema::dropIfExists('demand_vacations');
     }
 }

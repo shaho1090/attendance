@@ -18,6 +18,8 @@ use Carbon\Carbon;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 /*Route::get('/', function () {
     $currentDate = Carbon::parse('2020-01-06');
     $selectedDay = $currentDate->dayOfWeek;
