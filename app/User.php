@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function shifts()
     {
-        return $this->belongsToMany(Shift::class,'shift_user')
+        return $this->belongsToMany(Shift::class, 'shift_user')
             ->withPivot('from', 'to');
     }
 
@@ -61,8 +61,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(TimeSheet::class);
     }
-    public function vacations()
+
+    public function demandVacations()
     {
         return $this->hasMany(DemandVacation::class);
     }
+
+    public function vacationTypes()
+    {
+        return $this->belongsToMany(VacationType::class, 'user_vacation_amount')->withPivot('amount');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function vacationAmount(VacationType $vacationType)
+    {
+        return $this->vacationTypes()->find($vacationType->id)->pivot->amount;
+    }
+
 }

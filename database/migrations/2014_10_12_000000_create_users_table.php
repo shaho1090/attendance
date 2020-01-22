@@ -19,15 +19,15 @@ class CreateUsersTable extends Migration
             $table->string('family');
             $table->string('national_code');
             $table->string('personal_code');
+            $table->string('date_of_employment');
             $table->string('email')->unique();
-            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('unit_id')->nullable();;
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('unit_id')
-                ->references('id')->on('units')
-                ->onDelete('cascade');
+                ->references('id')->on('units');
         });
     }
 
