@@ -21,14 +21,18 @@ class VacationTypeTest extends TestCase
      */
     public function test_admin_can_define_types_of_leaves()
     {
+        $this->post(route('vacationType.store', [
+            'title' =>  'deserve leave',
+            'default_amount' => 17,
+        ]));
 
         $this->post(route('vacationType.store', [
-            'title' => Str::random(10).' leave',
-            'default_amount' => rand(0,1000),
-        ]))->dump();
-        
+            'title' =>  'sick leave',
+            'default_amount' => 3,
+        ]));
+
         //dd($vacationType);
-        $this->assertDatabaseHas('vacationType', [
+        $this->assertDatabaseHas('vacation_types', [
             'title' => $vacationType->title,
             'default_amount' => $vacationType->default_amount,
         ]);

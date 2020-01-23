@@ -17,6 +17,8 @@ class CreateVacationTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->integer('default_amount')->nullable();
+            $table->string('measurement_unit')->nullable();
+            $table->integer('period')->nullable();
             $table->timestamps();
         });
     }
