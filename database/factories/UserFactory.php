@@ -29,6 +29,6 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => '$2y$10$Q5IoW9MDi2jKslAtyCaV/Ot3qbLRBtjSWsacuKN76fLOQo0az0QOO', // password
         'remember_token' => Str::random(10),
-        'date_of_employment' => Carbon::parse(-2 month),
+        'date_of_employment' => date("Y-m-d", strtotime("2019-09-25")),
     ];
 });

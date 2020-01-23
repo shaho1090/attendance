@@ -182,7 +182,7 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('users.index')}} ">کاربران</a></li>
+                        <li><a href="{{ route('users.index')}} ">لیست کاربران</a></li>
                         <li><a href="{{ route('users.create') }}">ثبت کاربر جدید</a></li>
                         <li><a href="">تغییر رمز عبور کاربران </a></li>
                     </ul>
@@ -198,7 +198,7 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="{{ route('users.index')}} ">لیست درخواست ها</a></li>
                         <li><a href="{{ route('users.create') }}">ثبت درخواست جدید</a></li>
-                        <li><a href=""></a></li>
+                        <li><a href="{{ route('vacationType.index') }}"> تعریف انواع مرخصی</a></li>
                     </ul>
                 </li>
 

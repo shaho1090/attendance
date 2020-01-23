@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -77,9 +78,25 @@ class User extends Authenticatable
         return $this->belongsTo(Unit::class);
     }
 
-    public function vacationAmount(VacationType $vacationType)
+    public function getMonthlyVacation(VacationType $vacationType)
     {
         return $this->vacationTypes()->find($vacationType->id)->pivot->amount;
+    }
+
+    public function setMonthlyVacation(VacationType $leaveKind, int $amount){
+
+        return $this->vacationTypes()->attach($leaveKind->id, ['amount'=>$amount]);
+    }
+
+    public function getTotalLeave(VacationType $leaveKind)
+    {
+        $monthsOfWorkingTime = Carbon::now()->diffInMonths(date('Y-m-d',strtotime($this->date_of_employment)));
+        return $monthsOfWorkingTime * $this->getMonthlyVacation($leaveKind);
+    }
+
+    public function getLeaveBalance(VacationType $leaveKind)
+    {
+        return '';
     }
 
 }
