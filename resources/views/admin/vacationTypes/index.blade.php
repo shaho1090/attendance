@@ -26,14 +26,29 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="name">به صورت</label>
-                                <input type="" class="form-control" id="name" placeholder="عنوان مرخصی" name="title">
+                            <div class="form-group"><label for="vacation">تعیین دوره زمانی</label>
+                                <select class="form-control" size="1" name="vacation_period_time_id"
+                                        id="vacation">
+                                    <option value="" disabled selected>ماهانه یا سالانه</option>
+                                    @foreach($vacation_period_time as $item)
+                                        <option value="{{ $item->id }} ">
+                                            {{ $item->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="name">برحسب</label>
-                                <input type="" class="form-control" id="name" placeholder="مقدار مجاز"
-                                       name="default_amount">
+
+
+                            <div class="form-group"><label for="vacation">برحسب</label>
+                                <select class="form-control" size="1" name="vacation_measurement_id"
+                                        id="vacation">
+                                    <option value="" disabled selected>روز، ساعت، دقیقه</option>
+                                    @foreach($vacation_measurement as $item)
+                                        <option value="{{ $item->id }} ">
+                                            {{ $item->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -49,7 +64,9 @@
             <tbody>
             <tr>
                 <th class="text-danger">نوع مرخصی</th>
-                <th class="text-danger">مقدار مجاز سالیانه</th>
+                <th class="text-danger">مقدار مجاز</th>
+                <th class="text-danger">برحسب </th>
+                <th class="text-danger"> بازه زمانی</th>
             </tr>
             </tbody>
             <tbody id="users">
@@ -59,8 +76,10 @@
                         <a href="/vacationType/{{$vacationType->id}}">{{$vacationType->title}}</a>
                     </td>
                     <td>{{$vacationType->default_amount}}</td>
+                    <td>{{$vacationType->vacationMeasurement->title }}</td>
+                    <td>{{$vacationType->vacationPeriodTime->title  }}</td>
                     <td>
-                        <form onsubmit="return confirm('آیا مایل به حذف این کاربر هستید؟');"
+                        <form onsubmit="return confirm('آیا مایل به حذف این نوع مرخصی هستید؟');"
                               method="POST" action="/vacationType/{{$vacationType->id}}">
                             {{csrf_field()}}
                             {{method_field('delete')}}
@@ -77,6 +96,6 @@
             </tfoot>
         </table>
     </div>
-    </div>
+
 
 @endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\VacationMeasurement;
+use App\VacationPeriodTime;
 use App\VacationType;
 use Illuminate\Http\Request;
 
@@ -16,9 +18,12 @@ class VacationTypeController extends Controller
     public function index()
     {
         //$vacationTypes = VacationType::all();
+      //  dd(VacationPeriodTime::all());
 
         return view('admin.vacationTypes.index', [
-            'vacationTypes'=>  VacationType::all()
+            'vacationTypes'=>  VacationType::all(),
+            'vacation_period_time' => VacationPeriodTime::all(),
+            'vacation_measurement' => VacationMeasurement::all(),
         ]);
     }
 
@@ -41,16 +46,23 @@ class VacationTypeController extends Controller
      */
     public function store(Request $request)
     {
+
+        //dd($request->get('vacation_period_time_id'));
+
+       // dd($request->get('vacation_measurement_id'));
+
         VacationType::create([
             'title' => $request->get('title'),
             'default_amount' => $request->get('default_amount'),
+            'vacation_period_time_id' => $request->get('vacation_period_time_id'),
+            'vacation_measurement_id' => $request->get('vacation_measurement_id'),
         ]);
-
+         return redirect()->back();
         //$vacationTypes = VacationType::all();
 
-        return view('admin.vacationTypes.index', [
+        /*return view('admin.vacationTypes.index', [
             'vacationTypes'=> VacationType::all()
-        ]);
+        ]);*/
     }
 
     /**
