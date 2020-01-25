@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\SpecialVacation;
 use App\VacationType;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,16 @@ class SpecialVacationController extends Controller
      */
     public function index()
     {
+        $specialVacation = SpecialVacation::all();
+
+       // dd(VacationType::find(1)->users()->get());
+
+     //  dd($specialVacation->where('user_id','=',1)->all());
+
         return view('admin.specialVacations.index', [
             'vacationTypes' => VacationType::all(),
             'users' => User::all(),
+            //'userVacationAmount' => ,
         ]);
     }
 

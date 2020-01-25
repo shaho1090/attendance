@@ -3,16 +3,28 @@
 
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title"> مرخصی های خاص</h3>
+            <h3 class="box-title">تعیین سقف مرخصی بصورت خاص</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" method="post" action="{{route('specialVacation.store')}}">
             @csrf
             <div class="box-body">
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <select class="form-control" size="1" name="vacation_id">
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="employment">انتخاب کارمند</label>
+                        <select class="form-control" size="1" name="user_id" id="employment">
+                            <option value="" disabled selected>انتخاب کارمند</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }} ">
+                                    {{ $user->name. ' '.$user->family }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-2"><label for="vacation">نوع مرخصی</label>
+                        <select class="form-control" size="1" name="vacation_id"
+                                id="vacation">
                             <option value="" disabled selected>نوع مرخصی</option>
                             @foreach($vacationTypes as $vacationType)
                                 <option value="{{ $vacationType->id }} ">
@@ -21,33 +33,24 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="col-sm-2">
                         <label for="amount">مقدار</label>
-                        <input type="" class="form-control" id="name" placeholder="مقدار مجاز" name="amount">
+                        <input type="" class="form-control" id="amount" placeholder="مقدار مجاز" name="amount">
                     </div>
-                    <label for="employment">انتخاب کارمند</label>
-                    <select class="form-control" size="1" name="user_id">
-                        <option value="" disabled selected>انتخاب کارمند</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }} ">
-                                {{ $user->name. ' '.$user->family }}
-                            </option>
-                        @endforeach
-                    </select>
                 </div>
             </div>
             <!-- /.box-body -->
-
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary">ذخیره</button>
             </div>
         </form>
     </div>
-    <div class="box-body">
-        <div class="overflow-hidden">
-            <div class="float-right">برای مشاهده لیست مرخصی های خاص یک عنوان را انتخاب کنید
-            </div>
-            <div class="float-left col-sm-3"><select class="form-control" size="1" name="vacation_id">
+    <div class="box-header">
+        <div class="row">
+        <<--!--س>>    <div class="col-sm-5"><label for="selected_vacation">برای مشاهده لیست مرخصی های خاص یک عنوان را انتخاب
+                    کنید</label></div>
+            <div class="col-sm-2">
+                <select class="form-control" size="1" name="selected_vacation" id="selected_vacation">
                     <option value="" disabled selected>نوع مرخصی</option>
                     @foreach($vacationTypes as $vacationType)
                         <option value="{{ $vacationType->id }} ">
@@ -57,6 +60,8 @@
                 </select>
             </div>
         </div>
+    </div>
+    <div class="box-body">
         <table id="example2" class="table table-bordered table-hover">
             <tbody>
             <tr>
@@ -76,7 +81,7 @@
                     </td>
                     <td>{{$user->id}}</td>
                     <td>
-                        <form onsubmit="return confirm('آیا مایل به حذف این کاربر هستید؟');"
+                        <form onsubmit="return confirm('آیا مایل به حذف مرخصی اختصاص داده شده، هستید؟');"
                               method="POST" action="/vacationType/{{$vacationType->id}}">
                             {{csrf_field()}}
                             {{method_field('delete')}}
@@ -93,6 +98,4 @@
             </tfoot>
         </table>
     </div>
-    </div>
-
 @endsection
