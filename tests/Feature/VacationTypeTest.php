@@ -33,12 +33,17 @@ class VacationTypeTest extends TestCase
 
         //dd($vacationType);
         $this->assertDatabaseHas('vacation_types', [
-            'title' => $vacationType->title,
-            'default_amount' => $vacationType->default_amount,
+            'title' => 'deserve leave',
+            'default_amount' => 17,
+        ]);
+
+        $this->assertDatabaseHas('vacation_types', [
+            'title' => 'sick leave',
+            'default_amount' => 3,
         ]);
     }
 
-    public function test_admin_associate_leaves_to_users_with_amount()
+    public function test_admin_can_associate_specific_leaves_to_users_with_amount()
     {
         Role::create(['title' => 'admin']);
 
@@ -51,6 +56,7 @@ class VacationTypeTest extends TestCase
         //dd($user);
 
         factory(User::class, 3)->create();
+
         $user1 = User::find(1);
         $user2 = User::find(2);
         $user3 = User::find(3);
@@ -60,18 +66,19 @@ class VacationTypeTest extends TestCase
         $withoutPayLeave = VacationType::create(['title' => 'بدون حقوق']);
 
 
-        $user1->setMonthlyVacation($deserveLeave, 1020);
-        $user1->setMonthlyVacation($sickLeave, 4320);
-        $user1->setMonthlyVacation($withoutPayLeave, 0);
+        $user1->setSpecialVacation($deserveLeave, 1020);
+        $user1->setSpecialVacation($sickLeave, 4320);
+        $user1->setSpecialVacation($withoutPayLeave, 0);
 
-        $user2->setMonthlyVacation($deserveLeave, 1020);
-        $user2->setMonthlyVacation($sickLeave, 4320);
-        $user2->setMonthlyVacation($withoutPayLeave, 0);
+      //  $user2->setSpecialVacation($deserveLeave, 1020);
+     //   $user2->setSpecialVacation($sickLeave, 4320);
+      //  $user2->setSpecialVacation($withoutPayLeave, 0);
 
-        $user3->setMonthlyVacation($deserveLeave, 1020);
-        $user3->setMonthlyVacation($sickLeave, 4320);
-        $user3->setMonthlyVacation($withoutPayLeave, 0);
+         $this->assertTrue($user1->getSpecialVacation());
+         $this->assertNotTrue($user2->getSpecialVacation());
 
+
+      //  $this->assert
 
         //dd($user1->getTotalLeave($deserveLeave));
 

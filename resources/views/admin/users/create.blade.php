@@ -28,6 +28,10 @@
                         <input type="" class="form-control" id="personalCode" placeholder="کد پرسنلی" name="personal_code">
                     </div>
                     <div class="form-group">
+                        <label for="personalCode">تاریخ استخدام</label>
+                        <input type="" class="form-control" id="personalCode" placeholder="تاریخ استخدام" name="date_of_employment">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputEmail1">ایمیل</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ایمیل" name="email">
                     </div>

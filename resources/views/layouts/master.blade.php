@@ -199,6 +199,7 @@ desired effect
                         <li><a href="{{ route('users.index')}} ">لیست درخواست ها</a></li>
                         <li><a href="{{ route('users.create') }}">ثبت درخواست جدید</a></li>
                         <li><a href="{{ route('vacationType.index') }}"> تعریف انواع مرخصی</a></li>
+                        <li><a href="{{ route('specialVacation.index') }}"> مرخصی های خاص</a></li>
                     </ul>
                 </li>
 

@@ -78,12 +78,12 @@ class User extends Authenticatable
         return $this->belongsTo(Unit::class);
     }
 
-    public function getMonthlyVacation(VacationType $vacationType)
+    public function getSpecialVacation(VacationType $vacationType)
     {
         return $this->vacationTypes()->find($vacationType->id)->pivot->amount;
     }
 
-    public function setMonthlyVacation(VacationType $leaveKind, int $amount){
+    public function setSpecialVacation(VacationType $leaveKind, int $amount){
 
         return $this->vacationTypes()->attach($leaveKind->id, ['amount'=>$amount]);
     }
@@ -91,7 +91,7 @@ class User extends Authenticatable
     public function getTotalLeave(VacationType $leaveKind)
     {
         $monthsOfWorkingTime = Carbon::now()->diffInMonths(date('Y-m-d',strtotime($this->date_of_employment)));
-        return $monthsOfWorkingTime * $this->getMonthlyVacation($leaveKind);
+        return $monthsOfWorkingTime * $this->getSpecialVacation($leaveKind);
     }
 
     public function getLeaveBalance(VacationType $leaveKind)

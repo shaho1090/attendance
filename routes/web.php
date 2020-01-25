@@ -25,6 +25,7 @@ Route::namespace('admin')->prefix('/admin')->group(function (){
 
 Route::resource('users', 'admin\UsersController');
 Route::resource('vacationType', 'admin\VacationTypeController');
+Route::resource('specialVacation', 'admin\SpecialVacationController');
 
 
 Auth::routes();
