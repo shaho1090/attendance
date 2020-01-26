@@ -7,64 +7,110 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" method="post" action="{{route('demand-vacations.store')}}">
+        <form role="form" method="post" action="{{route('demandVacation.store')}}">
             @csrf
             <div class="box-body">
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <label for="name">نوع مجوز</label>
-                        <input type="" class="form-control" id="name" placeholder="نام" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="family">نوع تردد</label>
-                        <input type="" class="form-control" id="family" placeholder="نام خانوادگی" name="family">
-                    </div>
-                    <div class="form-group">
-                        <label for="nationalCode">نوع مرخصی</label>
-                        <input type="" class="form-control" id="nationalCode" placeholder="کد ملی" name="national_code">
-                    </div>
-                    <div class="form-group">
-                        <label for="personalCode">از تاریخ</label>
-                        <input type="" class="form-control" id="personalCode" placeholder="کد پرسنلی" name="personal_code">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">تا تاریخ</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ایمیل" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">از زمان</label>
-                        <input type="" class="form-control" id="exampleInputPassword1" placeholder="رمز عبور" name="password">
-                    </div>
 
+                <div class="row">
                     <div class="form-group">
-                        <label for="exampleInputPassword1">تا زمان</label>
-                        <input type="" class="form-control" id="exampleInputPassword1" placeholder="رمز عبور" name="password">
-                    </div>
+                        <div class="form-group col-sm-3"><label for="justification_type">نوع مجوز</label>
+                            <select class="form-control" size="1" name="justification_type_id"
+                                    id="justification_type">
+                                <option value="" disabled selected>مرخصی / ماموریت</option>
+                                @foreach($justification_types as $justification_type)
+                                    <option value="{{ $justification_type->id }} ">
+                                        {{ $justification_type->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">توضیحات</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="رمز عبور" name="password">
+
+                        <div class="form-group col-sm-3"><label for="hourly_daily">نوع تردد</label>
+                            <select class="form-control" size="1" name="hourly_daily_id"
+                                    id="hourly_daily" onchange="hourlyDaily(this.value)">
+                                <option value="" disabled selected>ساعتی / روزانه</option>
+                                @foreach($hourly_daily as $item)
+                                    <option value="{{ $item->id }} ">
+                                        {{ $item->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-3"><label for="vacationType">نوع مرخصی</label>
+                            <select class="form-control" size="1" name="vacation_type_id"
+                                    id="vacationType">
+                                <option value="" disabled selected>انتخاب نوع مرخصی</option>
+                                @foreach($vacation_types as $vacation_type)
+                                    <option value="{{ $vacation_type->id }} ">
+                                        {{ $vacation_type->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-2">
+                        <label for="from_date">از تاریخ</label>
+                        <input type="date" class="form-control" id="from_date" placeholder="از تاریخ"
+                               name="from_date">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="to_date">تا تاریخ</label>
+                        <input type="date" class="form-control" id="exampleInputEmail1" placeholder="تا تاریخ"
+                               name="to_date">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="from_time">از زمان</label>
+                        <input type="time" class="form-control" id="from_time" placeholder="از زمان"
+                               name="from_time">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="to_time">تا زمان</label>
+                        <input type="time" class="form-control" id="to_time" placeholder="تا زمان"
+                               name="to_time">
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-5">
+                    <div class="form-group ">
+                        <label for="description">توضیحات</label>
+                        <textarea class="form-control" id="description" rows="3"
+                                  name="description"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputFile">ارسال فایل</label>
                         <input type="file" id="exampleInputFile">
-
                         <p class="help-block">متن راهنما</p>
                     </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> مرا به خاطر بسپار
-                        </label>
-                    </div>
                 </div>
+
             </div>
             <!-- /.box-body -->
 
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary">ثبت</button>
+                <button type="submit" class="btn btn-primary col-lg-2" >ثبت</button>
             </div>
         </form>
     </div>
+    <script>
+        function hourlyDaily(state) {
+            const e = document.getElementById("hourly_daily");
+            const strUser = e.options[e.selectedIndex].text;
 
+           if(strUser == 'روزانه') {
+               document.getElementById("from_time").disabled = true;
+               document.getElementById("to_time").disabled = true;
+           }else if(strUser == 'ساعتی') {
+               document.getElementById("from_time").disabled = false;
+               document.getElementById("to_time").disabled = false;
+           }
+          //  confirm('hourly or daily ' + strUser);
+        }
+
+    </script>
 @endsection

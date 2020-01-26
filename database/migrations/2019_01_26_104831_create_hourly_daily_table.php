@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDailyHourlyTable extends Migration
+class CreateHourlyDailyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ class CreateDailyHourlyTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_hourly', function (Blueprint $table) {
+        Schema::create('hourly_daily', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->timestamps();
         });
 
-        DB::table('daily_hourly')->insert([
+        DB::table('hourly_daily')->insert([
             ['title' => 'روزانه'],
             ['title' => 'ساعتی'],
         ]);
@@ -34,6 +34,6 @@ class CreateDailyHourlyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_hourly');
+        Schema::dropIfExists('hourly_daily');
     }
 }

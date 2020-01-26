@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DemandVacation;
+use App\HourlyDaily;
+use App\JustificationType;
 use App\User;
+use App\VacationType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +33,11 @@ class DemandVacationController extends Controller
      */
     public function create()
     {
-        return view('demand-vacations.create');
+        return view('demand-vacations.create',[
+            'justification_types'=> JustificationType::all(),
+            'hourly_daily'=> HourlyDaily::all(),
+            'vacation_types' => VacationType::all(),
+        ]);
     }
 
     /**
@@ -41,7 +48,18 @@ class DemandVacationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd(Auth::user()->name);
+        //dd($request->get('justification_type_id'));
+        //dd($request->get('hourly_daily_id'));
+        //dd($request->get('vacation_type_id'));
+        //dd($request->get('from_date'));
+        //dd($request->get('to_date'));
+        //dd($request->get('from_time'));
+        //dd($request->get('to_time'));
+        //dd($request->get('description'));
+
+        
+
     }
 
     /**
