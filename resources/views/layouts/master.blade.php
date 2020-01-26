@@ -18,6 +18,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/timepicker/bootstrap-timepicker.min.css">
+
 
     <!-- Theme style -->
     <link rel="stylesheet" href="/dist/css/AdminLTE.css">
@@ -48,7 +50,6 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 
 </head>
@@ -97,35 +98,35 @@ desired effect
 
 
                     <li class="dropdown notifications-menu">
-{{--                        <a href="{{route('demand.child')}}" class="dropdown-toggle">--}}
-{{--                            <i id="test" class="fa fa-envelope"></i>--}}
-{{--                            <span class="label label-success">{{$newDemand}}</span>--}}
-{{--                        </a>--}}
+                        {{--                        <a href="{{route('demand.child')}}" class="dropdown-toggle">--}}
+                        {{--                            <i id="test" class="fa fa-envelope"></i>--}}
+                        {{--                            <span class="label label-success">{{$newDemand}}</span>--}}
+                        {{--                        </a>--}}
                     </li>
 
 
                     <!-- Tasks: style can be found in dropdown.less -->
 
                     <li class="dropdown tasks-menu">
-{{--                        <a href="{{route('demand.referDemand')}}" class="dropdown-toggle">--}}
-{{--                            <i class="fa fa-envelope"></i>--}}
-{{--                            <span class="label label-danger">{{$referDemand}}</span>--}}
-{{--                        </a>--}}
+                        {{--                        <a href="{{route('demand.referDemand')}}" class="dropdown-toggle">--}}
+                        {{--                            <i class="fa fa-envelope"></i>--}}
+                        {{--                            <span class="label label-danger">{{$referDemand}}</span>--}}
+                        {{--                        </a>--}}
                     </li>
 
                     <li class="dropdown tasks-menu">
-{{--                        <a href="{{route('demand.allFinalConfirm')}}" class="dropdown-toggle">--}}
-{{--                            <i class="fa fa-envelope"></i>--}}
-{{--                            <span class="label label-info">@if($finalConfirm > 0)--}}
-{{--                                    جدید--}}
-{{--                                @endif</span></a>
-{{--</li>--}}
+                    {{--                        <a href="{{route('demand.allFinalConfirm')}}" class="dropdown-toggle">--}}
+                    {{--                            <i class="fa fa-envelope"></i>--}}
+                    {{--                            <span class="label label-info">@if($finalConfirm > 0)--}}
+                    {{--                                    جدید--}}
+                    {{--                                @endif</span></a>
+                    {{--</li>--}}
                     <!-- User Account: style can be found in dropdown.less -->
 
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             @if(auth()->check())
-{{--                                <span class="hidden-xs">{{\App\Helpers\NameFormat::userfullName(auth()->user())}}</span>--}}
+                                {{--                                <span class="hidden-xs">{{\App\Helpers\NameFormat::userfullName(auth()->user())}}</span>--}}
                             @endif
                         </a>
                         <ul class="dropdown-menu">
@@ -186,6 +187,11 @@ desired effect
                         <li><a href="{{ route('users.create') }}">ثبت کاربر جدید</a></li>
                         <li><a href="">تغییر رمز عبور کاربران </a></li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{route('units.index')}}"><i class="fa fa-link"></i> <span>گروه های کاری</span>
+
+                    </a>
                 </li>
 
 
@@ -284,10 +290,11 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. -->
 <script src="{{asset('/js/jquery-1.10.2.js')}}"></script>
-<script src="{{asset('/js/jquery-ui-1.10.3.js')}}" ></script>
+<script src="{{asset('/js/jquery-ui-1.10.3.js')}}"></script>
 <script src="{{asset('/dist/js/persian-date-0.1.8.min.js')}}"></script>
 <script src="{{asset('/dist/js/persian-datepicker-0.4.5.min.js')}}"></script>
 <script src="{{asset('/bower_components/select2/dist/js/select2.full.min.js')}}"></script>
+<script src="{{asset('/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 @yield('script')
 <script>
     $(document).ready(function () {
@@ -302,16 +309,28 @@ desired effect
             format: 'YYYY/MM/DD',
         });
 
-        $('.tarikhh').persianDatepicker({
+        $('.tarikh').persianDatepicker({
             autoClose: true,
             initialValue: false,
-            format: 'YYYY/MM/DD',
-        });
+            format:'HH:mm',
+            onlyTimePicker: true,
+            timePicker24Hour:true,
+            timeFormat:'HH:ii'
+
+    })
+        ;
 
         $(function () {
             //Initialize Select2 Elements
             $('.select2').select2();
+            $('.Select2').val(null).trigger('change');
+
         });
+
+        //Timepicker
+        $('.timepicker').timepicker({
+            showInputs: false,
+        })
     });
 </script>
 

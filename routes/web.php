@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Route::namespace('admin')->prefix('/admin')->group(function (){
     Route::resource('units','UnitController');
+    Route::resource('shifts','ShiftController');
+    Route::resource('workTime','WorkTimeController');
 });
 
 Route::resource('users', 'admin\UsersController');

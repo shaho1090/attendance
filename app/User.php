@@ -51,11 +51,6 @@ class User extends Authenticatable
         return $this->roles()->where('title', '=', 'admin')->exists();
     }
 
-    public function shifts()
-    {
-        return $this->belongsToMany(Shift::class,'shift_user')
-            ->withPivot('from', 'to');
-    }
 
     public function timeSheets()
     {
