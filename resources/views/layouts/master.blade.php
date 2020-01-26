@@ -196,16 +196,28 @@ desired effect
 
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>مرخصی و ماموریت</span>
+                    <a href="#"><i class="fa fa-link"></i> <span> مدیریت مرخصی/ ماموریت </span>
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('users.index')}} ">لیست درخواست ها</a></li>
-                        <li><a href="{{ route('users.create') }}">ثبت درخواست جدید</a></li>
+                        <li><a href="{{ route('userVacation.index')}} ">لیست درخواست ها</a></li>
+
                         <li><a href="{{ route('vacationType.index') }}"> تعریف انواع مرخصی</a></li>
                         <li><a href="{{ route('specialVacation.index') }}"> مرخصی های خاص</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-link"></i> <span> درخواست مرخصی/ ماموریت</span>
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('demandVacation.index')}} ">لیست درخواست های من</a></li>
+                        <li><a href="{{ route('demandVacation.create') }}">ثبت درخواست جدید</a></li>
                     </ul>
                 </li>
 

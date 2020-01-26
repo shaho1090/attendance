@@ -16,7 +16,6 @@
                         <label for="section_id">بخش</label>
                         <select type="text" name="section_id" id="section_id" class="form-control" onchange="">
                             <option value="" selected>همه بخش ها</option>
-
                         </select>
                     </div>
                 </div>
@@ -35,12 +34,14 @@
             <table id="example2" class="table table-bordered table-hover">
                 <tbody>
                 <tr>
-                    <th class="text-danger">نام</th>
-                    <th class="text-danger">نام خانوادگی</th>
-                    <th class="text-danger">کد پرسنلی</th>
-                    <th class="text-danger">بخش</th>
-                    <th class="text-danger">ایمیل</th>
-                    <th class="text-danger">پست سازمانی</th>
+                    <th class="text-danger">شماره پرسنلی</th>
+                    <th class="text-danger">نوع مجوز</th>
+                    <th class="text-danger">نوع تردد</th>
+                    <th class="text-danger">نوع مرخصی</th>
+                    <th class="text-danger">از تاریخ</th>
+                    <th class="text-danger">تا تاریخ</th>
+                    <th class="text-danger">از زمان</th>
+                    <th class="text-danger">تا زمان</th>
                     <th class="text-danger">  ویرایش | حذف</th>
                 </tr>
                 </tbody>

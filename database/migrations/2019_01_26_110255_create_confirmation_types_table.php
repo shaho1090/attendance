@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVacationTypesTable extends Migration
+class CreateConfirmationTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,17 +14,18 @@ class CreateVacationTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vacation_types', function (Blueprint $table) {
+        Schema::create('confirmation_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->integer('default_amount')->nullable();
-            $table->unsignedBigInteger('vacation_period_time_id');
-            $table->unsignedBigInteger('vacation_measurement_id');
             $table->timestamps();
         });
-        DB::table('vacation_types')->insert([
-            ['title' => 'بدون حقوق'],
+
+        DB::table('confirmation_types')->insert([
+            ['title' => 'در انتظار تایید'],
+            ['title' => 'تایید مدیریت'],
+            ['title' => 'عدم تایید درخواست'],
         ]);
+
     }
 
     /**
@@ -34,6 +35,6 @@ class CreateVacationTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacation_types');
+        Schema::dropIfExists('confirmation_types');
     }
 }

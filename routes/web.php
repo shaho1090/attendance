@@ -29,9 +29,11 @@ Route::resource('users', 'admin\UsersController');
 Route::resource('vacationType', 'admin\VacationTypeController');
 Route::resource('specialVacation', 'admin\SpecialVacationController');
 Route::resource('holidays', 'admin\HolidayController');
+Route::resource('demandVacation', 'DemandVacationController');
+Route::resource('userVacation', 'UserVacationController');
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('demandVacation', 'DemandVacationController')->middleware('auth');

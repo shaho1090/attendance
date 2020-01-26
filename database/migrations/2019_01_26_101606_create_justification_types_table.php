@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVacationTypesTable extends Migration
+class CreateJustificationTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,18 +14,20 @@ class CreateVacationTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vacation_types', function (Blueprint $table) {
+        Schema::create('justification_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->integer('default_amount')->nullable();
-            $table->unsignedBigInteger('vacation_period_time_id');
-            $table->unsignedBigInteger('vacation_measurement_id');
             $table->timestamps();
         });
-        DB::table('vacation_types')->insert([
-            ['title' => 'بدون حقوق'],
+
+        DB::table('justification_types')->insert([
+            ['title' => 'مرخصی'],
+            ['title' => 'ماموریت'],
         ]);
+
     }
+
+
 
     /**
      * Reverse the migrations.
@@ -34,6 +36,6 @@ class CreateVacationTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacation_types');
+        Schema::dropIfExists('justification_types');
     }
 }

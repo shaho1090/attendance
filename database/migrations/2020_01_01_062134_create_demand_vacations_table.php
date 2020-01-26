@@ -19,9 +19,9 @@ class CreateDemandVacationsTable extends Migration
             $table->unsignedBigInteger('vacation_type_id');
             $table->timestamp('start');
             $table->timestamp('end')->nullable();
-            $table->boolean('is_daily');
-            $table->boolean('is_mission');
-            $table->tinyInteger('confirmation');
+            $table->unsignedBigInteger('hourly_daily_id');
+            $table->unsignedBigInteger('justification_type_id');
+            $table->tinyInteger('confirmation_type_id');
             $table->text('description');
             $table->timestamps();
             $table->foreign('user_id')
@@ -32,7 +32,6 @@ class CreateDemandVacationsTable extends Migration
                 ->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      *
