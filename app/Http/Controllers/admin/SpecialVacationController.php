@@ -4,10 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use App\SpecialVacation;
+use App\VacationType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class UsersController extends Controller
+class SpecialVacationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,16 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $specialVacation = SpecialVacation::all();
 
-        return view('admin.users.index', [
-            'users' => $users,
+       // dd(VacationType::find(1)->users()->get());
+
+     //  dd($specialVacation->where('user_id','=',1)->all());
+
+        return view('admin.specialVacations.index', [
+            'vacationTypes' => VacationType::all(),
+            'users' => User::all(),
+            //'userVacationAmount' => ,
         ]);
     }
 
@@ -30,37 +37,30 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //dd('hello');
-        //dd($request->get('name'));
-        User::create([
-            'name'=>$request->get('name'),
-            'family'=>$request->get('family'),
-            'national_code'=>$request->get('national_code'),
-            'personal_code'=>$request->get('personal_code'),
-            'email'=>$request->get('email'),
-            'password'=> Hash::make($request->get('password')),
-            'date_of_employment' =>$request->get('date_of_employment'),
+        //dd($request->get('vacation_id'), $request->get('user_id'), $request->get('amount'));
 
-        ]);
+        User::find($request->get('user_id'))
+            ->setSpecialVacation(
+                VacationType::Find($request->get('vacation_id')), $request->get('amount'));
 
-        return redirect()->back()->with('here we go');
+        return redirect(route('specialVacation.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +71,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +82,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +94,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
