@@ -323,7 +323,9 @@ desired effect
 
         $(function () {
             //Initialize Select2 Elements
-            $('.select2').select2();
+            $('.select2').select2({
+                dir:"rtl"
+            });
             $('.Select2').val(null).trigger('change');
 
         });

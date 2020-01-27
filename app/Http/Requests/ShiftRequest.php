@@ -24,7 +24,8 @@ class ShiftRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:4|max:20|unique:units,title|regex:/^[\pL\s\-]+$/u'
+            'title' => 'required|min:4|max:20|unique:units,title|regex:/^[\pL\s\-]+$/u',
+            'days'=>'required'
         ];
     }
     public function messages()

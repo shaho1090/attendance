@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Shift extends Model
@@ -27,9 +28,9 @@ class Shift extends Model
         return $this->hasMany(Day::class);
     }
 
-    public function Unit()
+    public function unit()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Unit::class);
     }
 
     public static $days = [
@@ -68,4 +69,6 @@ class Shift extends Model
             'faTitle' => 'یکشنبه'
         ],
     ];
+
+
 }

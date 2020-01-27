@@ -23,6 +23,9 @@ Route::namespace('admin')->prefix('/admin')->group(function (){
     Route::resource('units','UnitController');
     Route::resource('shifts','ShiftController');
     Route::resource('workTime','WorkTimeController');
+    Route::get('/shift/addTimeForm/{shift}','ShiftController@addTimeForm')->name('shifts.addTimeForm');
+    Route::get('/shift/addUnitForm/{shift}','ShiftController@addUnitForm')->name('shifts.addUnitForm');
+    Route::post('/shift/addUnit/{shift}','ShiftController@addUnit')->name('shifts.addUnit');
 });
 
 Route::resource('users', 'admin\UsersController');

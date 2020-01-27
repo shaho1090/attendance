@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <div class="col-md-6">
+    <div  class="col-md-9">
 
         <a href="{{route('shifts.create')}}" class="btn btn-facebook">افزودن شیفت کاری</a>
         <div class="box">
@@ -21,7 +21,9 @@
                     <thead>
                     <tr>
                         <th>عنوان</th>
-                        <th>اختصاص دان به گروه کاری</th>
+                        <th>جزئیات</th>
+                        <th>تنظیمات  زمان های کاری</th>
+                        <th>انتخاب گروه کاری</th>
                         <th>تنظیمات</th>
                     </tr>
                     </thead>
@@ -31,7 +33,17 @@
                                 {{$shift->title}}
                             </td>
                             <td>
-                                <a href="{{route('shifts.show',$shift->id)}}" class="btn btn-info">جزئیات</a>
+                                <a href="{{route('shifts.show',$shift->id)}}" class="btn btn-warning">
+                                    مشاهده</a>
+                            </td>
+
+                            <td>
+                                <a href="{{route('shifts.addTimeForm',$shift->id)}}" class="btn btn-success">زمان
+                                    کاری</a>
+                            </td>
+                            <td>
+                                <a href="{{route('shifts.addUnitForm',$shift->id)}}" class="btn btn-success">گروه
+                                    کاری</a>
                             </td>
 
                             <td>
@@ -40,7 +52,7 @@
                                       action="{{route('shifts.destroy',$shift->id)}}">
                                     {{csrf_field()}}
                                     {{method_field('delete')}}
-                                    <div class="btn-group btn-group-xs">
+                                    <div class="btn-group btn-group">
                                         <button type="submit" class="btn btn-danger">حذف</button>
                                         <a href="{{route('shifts.edit',$shift->id)}}" class="btn btn-primary">ویرایش</a>
                                     </div>

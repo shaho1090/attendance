@@ -4,6 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Day;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkTimeRequest;
+use App\Shift;
+use App\WorkTime;
 use Illuminate\Http\Request;
 
 class WorkTimeController extends Controller
@@ -16,21 +19,18 @@ class WorkTimeController extends Controller
 
     public function create()
     {
-        //
+
     }
 
 
-    public function store(Request $request)
+    public function store(WorkTimeRequest $request)
     {
-        foreach ($request->days as $day) {
-            for ($counter = 1; $counter < sizeof($request->ws) + 1; $counter++) {
-                (Day::find($day))->workTimes()->create([
-                   'start'=>$request->ws[$counter],
-                   'end'=>$request->we[$counter]
-                ]);
 
-            }
+//        Shift::addUnit($request->days[0], $request->unit);
+        foreach ($request->days as $day) {
+            WorkTime::addWorkTime($request->ws, $request->we, $day);
         }
+        return redirect(route('shifts.index'));
     }
 
 
