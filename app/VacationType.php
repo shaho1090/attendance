@@ -22,6 +22,8 @@ class VacationType extends Model
     {
         return $this->belongsTo(VacationPeriodTime::class,'vacation_period_time_id');
     }
+
+
 }
 
 
