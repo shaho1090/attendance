@@ -30,7 +30,8 @@ Route::resource('vacationType', 'admin\VacationTypeController');
 Route::resource('specialVacation', 'admin\SpecialVacationController');
 Route::resource('holidays', 'admin\HolidayController');
 Route::resource('demandVacation', 'DemandVacationController');
-Route::resource('userVacation', 'UserVacationController');
+Route::resource('userVacation', 'admin\UserVacationController');
+Route::resource('attendanceFiles', 'admin\AttendanceFileController');
 
 
 Auth::routes();

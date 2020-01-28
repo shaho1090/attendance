@@ -196,16 +196,17 @@ desired effect
 
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span> مدیریت مرخصی/ ماموریت </span>
+                    <a href="#"><i class="fa fa-link"></i> <span>بخش مدیریت</span>
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('userVacation.index')}} ">لیست درخواست ها</a></li>
+                        <li><a href="{{ route('userVacation.index')}} ">درخواست های مرخصی</a></li>
 
                         <li><a href="{{ route('vacationType.index') }}"> تعریف انواع مرخصی</a></li>
                         <li><a href="{{ route('specialVacation.index') }}"> مرخصی های خاص</a></li>
+                        <li><a href="{{ route('attendanceFiles.index') }}"> حضور و غیاب</a></li>
                     </ul>
                 </li>
 
