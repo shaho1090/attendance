@@ -22,9 +22,9 @@ class CreateVacationTypesTable extends Migration
             $table->unsignedBigInteger('vacation_measurement_id');
             $table->timestamps();
         });
-        DB::table('vacation_types')->insert([
-            ['title' => 'بدون حقوق'],
-        ]);
+//        DB::table('vacation_types')->insert([
+//            ['title' => 'بدون حقوق'],
+//        ]);
     }
 
 

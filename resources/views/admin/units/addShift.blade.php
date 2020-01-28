@@ -8,26 +8,30 @@
         <div class="col-md-8">
             <div class="box box-primary">
                 <form method="post"
-                      action="{{route('shifts.addUnit',$shift->id)}}">
+                      action="{{route('units.addShift',$unit->id)}}">
                     {{csrf_field()}}
                     <div class="box-body">
                         <div class="form-group">
-                            <label> انتخاب گروه کاری مربوط به شیفت {{$shift->title}}</label>
-                            <select required name="units[]" class="form-control select2 select2-hidden-accessible"
-                                    multiple=""
-                                    data-placeholder="انتخاب گروه کاری" style="width: 100%;" tabindex="-1"
-                                    aria-hidden="true">
-                                <option disabled selected value="">انتخاب گروه کاری</option>
-                                @foreach($units as $unit)
-                                    <option value="{{$unit->id}}">{{$unit->title}} </option>
+
+                            <label> انتخاب شیفت کاری مربوط به گروه {{$unit->title}}</label>
+                            <select required name="shift" class="input-group" style="width: 50%"
+                                    data-placeholder="انتخاب گروه کاری"
+                            >
+                                <option selected disabled>انتخاب شیفت</option>
+
+                                @foreach($shifts as $shift)
+                                    <option @if($unit->getCurrentShift() != null)
+                                            {{ $shift->id == $unit->getCurrentShift()->id ? 'selected' : ''}}
+                                            @endif
+                                            value="{{$shift->id}}">{{$shift->title}} </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div  class="box-footer">
+                    <div class="box-footer">
                         <button type="submit" class="btn btn-primary">ثبت نهایی</button>
-                        <a href="{{route('shifts.index')}}" class="btn btn-danger">بازگشت</a>
+                        <a href="{{route('units.index')}}" class="btn btn-danger">بازگشت</a>
                     </div>
 
                 </form>

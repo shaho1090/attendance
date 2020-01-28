@@ -18,7 +18,8 @@ class CreateWorkTimesTable extends Migration
             $table->unsignedBigInteger('day_id');
             $table->time('start');
             $table->time('end');
-            $table->timestamps();
+            $table->timestamp('from')->default(now());
+            $table->timestamp('to')->nullable();
             $table->foreign('day_id')
                 ->references('id')->on('days')
                 ->onDelete('cascade');

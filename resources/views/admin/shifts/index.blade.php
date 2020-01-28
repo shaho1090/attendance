@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <div  class="col-md-9">
+    <div class="col-md-9">
 
         <a href="{{route('shifts.create')}}" class="btn btn-facebook">افزودن شیفت کاری</a>
         <div class="box">
@@ -22,8 +22,7 @@
                     <tr>
                         <th>عنوان</th>
                         <th>جزئیات</th>
-                        <th>تنظیمات  زمان های کاری</th>
-                        <th>انتخاب گروه کاری</th>
+                        <th>تنظیمات زمان های کاری</th>
                         <th>تنظیمات</th>
                     </tr>
                     </thead>
@@ -38,13 +37,13 @@
                             </td>
 
                             <td>
-                                <a href="{{route('shifts.addTimeForm',$shift->id)}}" class="btn btn-success">زمان
-                                    کاری</a>
+                                <div class="btn-group btn-group">
+                                    <a href="{{route('shifts.addTimeForm',$shift->id)}}" class="btn btn-success">افزودن</a>
+                                    <a href="{{route('shifts.editTime',$shift->id)}}" class="btn btn-info">ویرایش
+                                        </a>
+                                </div>
                             </td>
-                            <td>
-                                <a href="{{route('shifts.addUnitForm',$shift->id)}}" class="btn btn-success">گروه
-                                    کاری</a>
-                            </td>
+
 
                             <td>
                                 <form onsubmit="return confirm('آیا مایل به حذف این شیفت کاری می باشید؟');"

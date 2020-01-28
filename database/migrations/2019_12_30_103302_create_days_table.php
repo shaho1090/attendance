@@ -17,7 +17,8 @@ class CreateDaysTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('shift_id');
             $table->string('title');
-            $table->timestamps();
+            $table->timestamp('form')->default(now());
+            $table->timestamp('to')->nullable();
             $table->foreign('shift_id')
                 ->references('id')->on('shifts')
                 ->onDelete('cascade');

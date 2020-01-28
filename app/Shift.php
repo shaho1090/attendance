@@ -30,7 +30,8 @@ class Shift extends Model
 
     public function unit()
     {
-        return $this->belongsToMany(Unit::class);
+        return $this->belongsToMany(Unit::class,'shift_unit')
+            ->withPivot('from', 'to');
     }
 
     public static $days = [
@@ -69,6 +70,21 @@ class Shift extends Model
             'faTitle' => 'یکشنبه'
         ],
     ];
+
+    public static function updateTitle($shift)
+    {
+
+    }
+
+    public static function updateUnit($shift)
+    {
+
+    }
+
+    public static function updateworkTime($shift)
+    {
+
+    }
 
 
 }

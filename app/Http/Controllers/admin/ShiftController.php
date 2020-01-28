@@ -19,6 +19,7 @@ class ShiftController extends Controller
 
     public function index()
     {
+
         $shifts = Shift::query()->latest()->paginate(20);
         return view('admin.shifts.index', compact('shifts'));
     }
@@ -39,9 +40,28 @@ class ShiftController extends Controller
 
     public function show(Shift $shift)
     {
+
         return view('admin.shifts.show',compact('shift'));
 
     }
+
+//    public function editType(Request $request,Shift $shift)
+//    {
+//        $units=Unit::all();
+//       switch ($request->updateType)
+//       {
+//           case 'title':
+//               return view('admin.shifts.editTitle',compact('shift'));
+//               break;
+//           case 'unit':
+//               return view('admin.shifts.editUnit',compact('shift','units'));
+//               break;
+//           case 'workTime':
+//               return view('admin.shifts.editWorkTime',compact('shift',Shift::$days));
+//               break;
+//       }
+//
+//    }
 
     public function addTimeForm(Shift $shift)
     {
@@ -58,7 +78,18 @@ class ShiftController extends Controller
 
     public function addUnit(Request $request, Shift $shift)
     {
+        ($shift->unit()->update([
+            'to'=>Carbon::now()
+        ]));
+
         $shift->unit()->sync($request->units);
+    }
+
+
+    public function editTime()
+    {
+        dd('time');
+
     }
 
     public function edit(Shift $shift)
