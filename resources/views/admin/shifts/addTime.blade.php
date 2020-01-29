@@ -10,17 +10,6 @@
                 <form method="post"
                       action="{{route('shifts.addWorkTime',$shift)}}">
                     {{csrf_field()}}
-{{--                    <div class="box-body">--}}
-{{--                        <div class="form-group">--}}
-{{--                            <label>انتخاب گروه کاری</label>--}}
-{{--                            <select required name="unit" class="input-group" style="width: 50%">--}}
-{{--                                <option disabled selected value="">انتخاب گروه کاری</option>--}}
-{{--                                @foreach($units as $unit)--}}
-{{--                                    <option value="{{$unit->id}}">{{$unit->title}} </option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
                     <div class="box-body">
                         <div class="form-group">

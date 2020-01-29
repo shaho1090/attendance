@@ -9,6 +9,7 @@ use App\Http\Requests\ShiftRequest;
 use App\Shift;
 use App\Unit;
 use Carbon\Carbon;
+use http\Env\Url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -20,10 +21,6 @@ class ShiftController extends Controller
 
     public function index()
     {
-//        ($shift = Shift::find(29)->id);
-//        dd($shift,DayShift::query()->where('shift_id',$shift)->get()->map->workTimes);
-
-
         $shifts = Shift::query()->latest()->paginate(20);
         return view('admin.shifts.index', compact('shifts'));
     }
@@ -37,7 +34,6 @@ class ShiftController extends Controller
     public function store(ShiftRequest $request)
     {
         $shift = Shift::query()->create($request->validated());
-//        Day::addShift($shift, $request->days);
         $shift->days()->sync($request->days);
         return back();
 
@@ -60,47 +56,37 @@ class ShiftController extends Controller
 
     public function addWorkTime(Request $request, Shift $shift)
     {
-
         $days = DayShift::getDays($shift, $request->days);
-
         foreach ($days as $day) {
             Shift::addWorkTime($request->ws, $request->we, $day);
         }
         return back();
-
-
     }
 
-//    public function addUnitForm(Shift $shift)
-//    {
-//        $units = Unit::all();
-//        return view('admin.shifts.addUnit', compact('units', 'shift'));
-//    }
-
-//    public function addUnit(Request $request, Shift $shift)
-//    {
-//        ($shift->unit()->update([
-//            'to' => Carbon::now()
-//        ]));
-//
-//        $shift->unit()->sync($request->units);
-//    }
-
-
-    public function editTime()
+    public function addDaysForm(Shift $shift)
     {
-        dd('time');
+        $days = Day::all()->diff($shift->days);
+        return view('admin.shifts.addDay', compact('shift', 'days'));
+    }
+
+    public function addDays(Request $request, Shift $shift)
+    {
+        $shift->days()->attach($request->days);
+        session()->flash('flash_message', 'روزهای مورد نظر با موفقیت ثبت شدند');
+        return redirect(route('shifts.index'));
 
     }
 
     public function edit(Shift $shift)
     {
-        //
+        $days = Day::all();
+        return view('admin.shifts.edit', compact('days', 'shift'));
     }
 
-    public function update(Request $request, Shift $shift)
+    public function update(ShiftRequest $request, Shift $shift)
     {
-        //
+
+
     }
 
     public function destroy(Shift $shift)

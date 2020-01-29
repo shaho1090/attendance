@@ -23,7 +23,8 @@
                         <th>عنوان</th>
                         <th>جزئیات</th>
                         <th>تنظیمات زمان های کاری</th>
-                        <th>تنظیمات</th>
+                        <th> تنظیمات روزهای کاری</th>
+                        <th> تنظیمات</th>
                     </tr>
                     </thead>
                     @foreach($shifts as $shift)
@@ -39,11 +40,15 @@
                             <td>
                                 <div class="btn-group btn-group">
                                     <a href="{{route('shifts.addTimeForm',$shift->id)}}" class="btn btn-success">افزودن</a>
-                                    <a href="{{route('shifts.editTime',$shift->id)}}" class="btn btn-info">ویرایش
+                                    <a href="" class="btn btn-info">ویرایش
                                         </a>
                                 </div>
                             </td>
 
+                            <td>
+                                <a href="{{route('shifts.addDaysForm',$shift->id)}}" class="btn btn-success">افزودن روز کاری</a>
+                                <a href="" class="btn btn-info">حذف روز کاری
+                            </td>
 
                             <td>
                                 <form onsubmit="return confirm('آیا مایل به حذف این شیفت کاری می باشید؟');"
