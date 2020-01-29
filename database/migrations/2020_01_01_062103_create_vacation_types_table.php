@@ -21,13 +21,14 @@ class CreateVacationTypesTable extends Migration
             $table->unsignedBigInteger('vacation_period_time_id');
             $table->unsignedBigInteger('vacation_measurement_id');
             $table->timestamps();
+            $table->foreign('vacation_period_time_id')
+                ->references('id')->on('vacation_period_time');
+            $table->foreign('vacation_measurement_id')
+                ->references('id')->on('vacation_measurement');
         });
-//        DB::table('vacation_types')->insert([
-//            ['title' => 'بدون حقوق'],
-//        ]);
+
+
     }
-
-
 
     /**
      * Reverse the migrations.

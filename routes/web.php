@@ -39,9 +39,12 @@ Route::resource('users', 'admin\UsersController');
 Route::resource('vacationType', 'admin\VacationTypeController');
 Route::resource('specialVacation', 'admin\SpecialVacationController');
 Route::resource('holidays', 'admin\HolidayController');
+Route::resource('demandVacation', 'DemandVacationController');
+Route::resource('userVacation', 'admin\UserVacationController');
+Route::resource('attendanceFiles', 'admin\AttendanceFileController');
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('demandVacation', 'DemandVacationController')->middleware('auth');
