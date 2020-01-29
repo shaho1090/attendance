@@ -33,5 +33,10 @@ class Day extends Model
 
     }
 
+    public function getWorkTimes()
+    {
+       return DayShift::find($this->pivot->id)->workTimes;
+    }
+
 
 }

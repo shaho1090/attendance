@@ -45,9 +45,8 @@ class ShiftController extends Controller
 
     public function show(Shift $shift)
     {
-
         return view('admin.shifts.show', [
-            'shift' => $shift->load('days','workTimes'),
+            'shift' => $shift->load('days'),
         ]);
     }
 
@@ -62,7 +61,7 @@ class ShiftController extends Controller
     public function addWorkTime(Request $request, Shift $shift)
     {
 
-        $days = DayShift::query()->where('shift_id', $shift->id)->whereIn('day_id', $request->days)->get();
+        $days = DayShift::getDays($shift, $request->days);
 
         foreach ($days as $day) {
             Shift::addWorkTime($request->ws, $request->we, $day);
