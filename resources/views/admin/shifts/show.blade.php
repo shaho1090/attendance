@@ -29,7 +29,7 @@
                         <br>
                         @foreach($shift->days as $day)
                             <b>{{$day->label}}</b><br>
-                            @foreach($day->workTimes as $time)
+                            @foreach(\App\DayShift::find($day->pivot->id)->workTimes as $time)
                                    شروع :{{$time->start}}
                                 <br>
                                   پایان: {{ $time->end }}

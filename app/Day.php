@@ -17,7 +17,7 @@ class Day extends Model
 
     public function workTimes()
     {
-        return $this->hasManyThrough(WorkTime::class, DayShift::class, 'id', 'day_shift_id');
+        return $this->hasManyThrough(WorkTime::class, DayShift::class, 'day_id', 'day_shift_id');
     }
 
 

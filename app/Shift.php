@@ -34,6 +34,11 @@ class Shift extends Model
             ->withPivot('from', 'to');
     }
 
+    public function workTimes()
+    {
+        return $this->hasManyThrough(WorkTime::class, DayShift::class, 'shift_id', 'day_shift_id');
+    }
+
     public static function addWorkTime($start, $end, $day)
     {
         for ($counter = 1; $counter < sizeof($start) + 1; $counter++) {
@@ -45,20 +50,10 @@ class Shift extends Model
         session()->flash('flash_message', 'زمان های مورد نظر با موفقیت ثبت شدند');
     }
 
-    public static function updateTitle($shift)
-    {
 
-    }
 
-    public static function updateUnit($shift)
-    {
 
-    }
 
-    public static function updateworkTime($shift)
-    {
-
-    }
 
 
 }
