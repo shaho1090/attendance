@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\TimeSheet;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Jalali\GregorianJalali;
 
 class AttendanceFileController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -35,30 +39,43 @@ class AttendanceFileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
+        //$v = Verta::createJalali();
+
+        //$jDate = new GregorianJalali();
+
+        //dd($jDate->jalali_to_gregorian(1398,11,8, true));
+
+
         $file = $request->file('attendanceFile');//->store('attendanceFiles');
 
         $fileDate = $request->get('file_date');
         // save to storage/app/attendanceFile as the new $filename
-        $path = $file->storeAs('attendanceFiles'.'/'. date('Y-m' ,strtotime($fileDate)), date('d' ,strtotime($fileDate)).'.csv');
+        $path = $file->storeAs('attendanceFiles' . '/' . date('Y-m', strtotime($fileDate)), date('d', strtotime($fileDate)) . '.csv');
         // dd($path);
-        $path = '../storage/app/'.$path;
+        $path = '../storage/app/' . $path;
         $fileContent = File::get(storage_path($path));
-       // $array_maped = array_map('str_getcsv',$fileContent);
-
+        // $array_maped = array_map('str_getcsv',$fileContent);
 
 
         // Open the file for reading
-        if (($h = fopen( $path, "r")) !== FALSE)
-        {
+        if (($h = fopen($path, "r")) !== FALSE) {
             // Convert each line into the local $data variable
-            while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
-            {
-                dump($data);
+            while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
+
+                $vertaDate = Verta::parse($data[1] . ' ' . $data[2]);
+                //$v->formatGregorian('Y-m-d H:i:s');
+                //dump($data);
+                //dump($data[1].$data[2]);
+                TimeSheet::create([
+                    'user_id' => $data[0],
+                    'finger_print_time' => $vertaDate->formatGregorian('Y-m-d H:i:s'),
+                ]);
             }
 
             // Close the file
@@ -66,16 +83,16 @@ class AttendanceFileController extends Controller
         }
 
 
-        dd($fileContent);
+        // dd($fileContent);
 
-        return view('admin.attendanceFiles.create',['file_content'=> $fileContent]);
+        return view('admin.attendanceFiles.create', ['file_content' => $fileContent]);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -86,7 +103,7 @@ class AttendanceFileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -97,8 +114,8 @@ class AttendanceFileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -109,7 +126,7 @@ class AttendanceFileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

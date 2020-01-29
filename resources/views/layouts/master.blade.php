@@ -207,6 +207,8 @@ desired effect
                         <li><a href="{{ route('vacationType.index') }}"> تعریف انواع مرخصی</a></li>
                         <li><a href="{{ route('specialVacation.index') }}"> مرخصی های خاص</a></li>
                         <li><a href="{{ route('attendanceFiles.index') }}"> حضور و غیاب</a></li>
+                        <li><a href="{{ route('roles.index') }}">تعریف نقش ها</a></li>
+                        <li><a href="{{ route('userRoles.index') }}">اختصاص نقش به کاربر</a></li>
                     </ul>
                 </li>
 
