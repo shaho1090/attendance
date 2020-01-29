@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateConfirmorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,20 +13,16 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('confirmors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')->on('users');
         });
 
-        DB::table('roles')->insert([
-            ['title' => 'مدیر'],
-            ['title' => 'کاربر عادی'],
-        ]);
+
     }
-
-
-
 
     /**
      * Reverse the migrations.
@@ -36,6 +31,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('confirmors');
     }
 }

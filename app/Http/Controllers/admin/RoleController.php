@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controller;
 
-class UsersController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index', [
-            'users' => User::all(),
+        return view('admin.roles.index', [
+            'roles' => Role::all(),
             'index' => 1,
         ]);
     }
@@ -29,37 +28,29 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //dd('hello');
-        //dd($request->get('name'));
-        User::create([
-            'name'=>$request->get('name'),
-            'family'=>$request->get('family'),
-            'national_code'=>$request->get('national_code'),
-            'personal_code'=>$request->get('personal_code'),
-            'email'=>$request->get('email'),
-            'password'=> Hash::make($request->get('password')),
-            'date_of_employment' =>$request->get('date_of_employment'),
+        Role::create([
+            'title' => $request->get('title'),
 
         ]);
 
-        return redirect()->back()->with('here we go');
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +61,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -81,8 +72,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -93,11 +84,13 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Role $role
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        return back();
     }
 }

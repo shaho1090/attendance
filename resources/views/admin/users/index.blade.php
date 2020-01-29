@@ -24,8 +24,8 @@
                     <div class="form-group">
                         <label for="orderBy">مرتب سازی بر اساس</label>
                         <select name="orderBy" id="orderBy" class="form-control" onchange="">
-                            <option value="personal_code">شماره کارمندی</option>
-                            <option value="last_name">نام خانوادگی</option>
+                            <option value="personal_code">کد پرسنلی</option>
+                            <option value="family">نام خانوادگی</option>
                         </select>
                     </div>
                 </div>
@@ -35,18 +35,21 @@
             <table id="example2" class="table table-bordered table-hover">
                 <tbody>
                 <tr>
+                    <th class="text-danger">ردیف</th>
                     <th class="text-danger">نام</th>
                     <th class="text-danger">نام خانوادگی</th>
                     <th class="text-danger">کد پرسنلی</th>
-                    <th class="text-danger">بخش</th>
-                    <th class="text-danger">ایمیل</th>
+                    <th class="text-danger">کد ملی</th>
                     <th class="text-danger">پست سازمانی</th>
+                    <th class="text-danger">ایمیل</th>
+                    <th class="text-danger">نقش</th>
                     <th class="text-danger">  ویرایش | حذف</th>
                 </tr>
                 </tbody>
                 <tbody id="users">
                 @foreach($users as $user)
                     <tr>
+                        <td>{{$index}}</td>
                         <td>
                             <a href="/users/{{$user->id}}">{{$user->name}}</a>
                         </td>
@@ -55,6 +58,7 @@
                         <td>{{$user->namtional_code}}</td>
                         <td></td>
                         <td>{{$user->email}}</td>
+                        <td></td>
                         <td>
                             <form onsubmit="return confirm('آیا مایل به حذف این کاربر هستید؟');"
                                   method="POST" action="/users/{{$user->id}}">
@@ -66,6 +70,7 @@
                             </form>
                         </td>
                     </tr>
+                    <input type="hidden" {{$index+=1}}>
                 @endforeach
                 </tbody>
                 <tfoot>
