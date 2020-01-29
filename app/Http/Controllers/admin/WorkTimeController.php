@@ -23,13 +23,14 @@ class WorkTimeController extends Controller
     }
 
 
-    public function store(WorkTimeRequest $request)
+    public function store(Request $request,Shift $shift)
     {
 
+
 //        Shift::addUnit($request->days[0], $request->unit);
-        foreach ($request->days as $day) {
-            WorkTime::addWorkTime($request->ws, $request->we, $day);
-        }
+//        foreach ($request->days as $day) {
+//            WorkTime::addWorkTime($request->ws, $request->we, $day);
+//        }
         return redirect(route('shifts.index'));
     }
 

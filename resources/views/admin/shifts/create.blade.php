@@ -28,9 +28,9 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input name="days[]" value="{{$day['title']}}" type="checkbox"
+                                        <input name="days[]" value="{{$day->id}}" type="checkbox"
                                                id="day">
-                                        {{$day['faTitle']}}
+                                        {{$day->label}}
                                     </label>
                                 </div>
                             </div>

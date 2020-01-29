@@ -8,7 +8,7 @@
         <div class="col-md-9">
             <div class="box box-primary">
                 <form method="post"
-                      action="{{route('workTime.store')}}">
+                      action="{{route('shifts.addWorkTime',$shift)}}">
                     {{csrf_field()}}
 {{--                    <div class="box-body">--}}
 {{--                        <div class="form-group">--}}
@@ -30,7 +30,7 @@
                                     data-placeholder="انتخاب روز" style="width: 100%;" tabindex="-1"
                                     aria-hidden="true">
                                 @foreach($days as $day)
-                                    <option value="{{$day->id}}">{{$day->title}} </option>
+                                    <option value="{{$day->id}}">{{$day->label}} </option>
                                 @endforeach
                             </select>
                         </div>
