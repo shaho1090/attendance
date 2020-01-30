@@ -38,53 +38,57 @@
                         <input type="" class="form-control" id="amount" placeholder="مقدار مجاز" name="amount">
                     </div>
                 </div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">ذخیره</button>
+
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">ذخیره</button>
+                </div>
             </div>
         </form>
-    </div>
 
-    <div class="box-body">
-        <table id="example2" class="table table-bordered table-hover">
-            <tbody>
-            <tr>
-                <th class="text-danger">نام</th>
-                <th class="text-danger">نام خانوادگی</th>
-                <th class="text-danger">نوع مرخصی</th>
-                <th class="text-danger">مقدار مجاز تعریف شده</th>
-            </tr>
-            </tbody>
-            <tbody id="users">
-            @foreach($users as $user)
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <tbody>
                 <tr>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->family}}</td>
-                    <td>
-                        <a href="/vacationType/{{$vacationType->id}}">{{$vacationType->title}}</a>
-                    </td>
-                    <td>
-                        @foreach($user->vacationTypes()->get() as $userVacation)
-                             {{$userVacation->title.' = '.$userVacation->pivot->amount.' | '}}
-                        @endforeach
-                    </td>
-                    <td>
-                        <form onsubmit="return confirm('آیا مایل به حذف مرخصی اختصاص داده شده، هستید؟');"
-                              method="POST" action="/vacationType/{{$vacationType->id}}">
-                            {{csrf_field()}}
-                            {{method_field('delete')}}
-
-                            <a href="/vacationType/edit/{{$vacationType->id}}" class="btn btn-primary">ویرایش</a>
-                            <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-                        </form>
-                    </td>
+                    <th class="text-danger col-sm-1 ">ردیف</th>
+                    <th class="text-danger ">نام</th>
+                    <th class="text-danger ">نام خانوادگی</th>
+                    <th></th>
+                    <th class="text-danger">مقدار مجاز تعریف شده</th>
                 </tr>
-            @endforeach
-            </tbody>
-            <tfoot>
+                </tbody>
+                <tbody id="users">
+                @foreach($users as $user)
+                    <tr>
+                        <td>{{$index}}</td>
+                        <td>{{$user->name}}</td>
+                        <td>{{$user->family}}</td>
+                        <td>
+                        </td>
+                        <td>
+                            @foreach($user->vacationTypes()->get() as $userVacation)
+                                {{$userVacation->title.' = '.$userVacation->pivot->amount.' | '}}
+                            @endforeach
+                        </td>
+                        <td>
+                            <form onsubmit="return confirm('آیا مایل به حذف مرخصی اختصاص داده شده، هستید؟');"
+                                  method="POST" action="/vacationType/{{$vacationType->id}}">
+                                {{csrf_field()}}
+                                {{method_field('delete')}}
 
-            </tfoot>
-        </table>
+                                <a href="/vacationType/edit/{{$vacationType->id}}" class="btn btn-primary">ویرایش</a>
+                                <button type="submit" class="btn btn-danger btn-sm">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <input type="hidden" {{$index+=1}}>
+                @endforeach
+                </tbody>
+
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
     </div>
 @endsection

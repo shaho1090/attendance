@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html lang="fa">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/dist/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/dist/css/persian-datepicker-0.4.5.min.css"/>
     <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
 
     <!-- Bootstrap rtl -->
     <link rel="stylesheet" href="/dist/css/rtl.css">
@@ -34,6 +35,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <![endif]-->
     <style>
         .flex-checkbox {
@@ -350,8 +352,10 @@ desired effect
             showInputs: false,
         })
     });
-</script>
 
+</script>
+<script src="{{ asset('/js/app.js') }}"></script>
+<script src="{{ asset('/js/all.js') }}"></script>
 
 </body>
 </html>
