@@ -20,18 +20,17 @@ class Day extends Model
         return $this->hasManyThrough(WorkTime::class, DayShift::class, 'day_id', 'day_shift_id');
     }
 
-
-    public static function addShift($shift, $days)
-    {
-        foreach ($days as $day) {
-            $shift->days()->create([
-                'title' => $day
-            ]);
-        }
-        session()->flash('flash_message', 'شیفت مورد نظر با موفقیت ثبت شد');
-
-
-    }
+//
+//    public static function addShift($shift, $days)
+//    {
+//        foreach ($days as $day) {
+//            $shift->days()->create([
+//                'title' => $day
+//            ]);
+//        }
+//        session()->flash('flash_message', 'شیفت مورد نظر با موفقیت ثبت شد');
+//
+//    }
 
     public function getWorkTimes()
     {

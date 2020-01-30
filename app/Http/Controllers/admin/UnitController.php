@@ -64,7 +64,6 @@ class UnitController extends Controller
 
     public function addShiftForm(Unit $unit)
     {
-
         $shifts = Shift::all();
         return view('admin.units.addShift', compact('shifts', 'unit'));
     }

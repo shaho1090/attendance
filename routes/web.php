@@ -27,8 +27,9 @@ Route::namespace('admin')->prefix('/admin')->group(function () {
     Route::resource('shifts', 'ShiftController');
     Route::get('/shift/addTimeForm/{shift}', 'ShiftController@addTimeForm')->name('shifts.addTimeForm');
     Route::post('/shift/addWorkTime/{shift}', 'ShiftController@addWorkTime')->name('shifts.addWorkTime');
-    Route::get('/shift/editUnit/{shift}', 'ShiftController@editUnit')->name('shifts.editUnit');
-    Route::get('/shift/editTime/{shift}', 'ShiftController@editTime')->name('shifts.editTime');
+    Route::get('/shift/editDays/{shift}', 'ShiftController@editDays')->name('shifts.editDays');
+    Route::post('/shift/addDays/{shift}', 'ShiftController@addDays')->name('shifts.addDays');
+    Route::post('/shift/removeDays/{shift}', 'ShiftController@removeDays')->name('shifts.removeDays');
 
     //**************WorkTime Route**************
     Route::resource('workTime', 'WorkTimeController');
