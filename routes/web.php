@@ -32,7 +32,11 @@ Route::resource('holidays', 'admin\HolidayController');
 Route::resource('demandVacation', 'DemandVacationController');
 Route::resource('userVacation', 'admin\UserVacationController');
 Route::resource('attendanceFiles', 'admin\AttendanceFileController');
-Route::resource('roles', 'admin\RoleController');
+
+Route::resource('roles', 'admin\RoleController')->except(['patch']);
+Route::patch('/roles/update/{role}', 'admin\RoleController@update')
+    ->name('roles.update');
+
 Route::resource('userRoles', 'admin\UserRoleController');
 
 Auth::routes();

@@ -79,24 +79,35 @@ class VacationTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param VacationType $vacationType
+     * @return void
      */
-    public function edit($id)
+    public function edit(VacationType $vacationType)
     {
-        //
+        return view('admin.vacationTypes.edit',[
+            'vacationType' => $vacationType,
+            'vacation_period_time' => VacationPeriodTime::all(),
+            'vacation_measurement' => VacationMeasurement::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param VacationType $vacationType
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,VacationType $vacationType)
     {
-        //
+        $vacationType->update([
+            'title' => $request->get('title'),
+            'default_amount' => $request->get('default_amount'),
+            'vacation_period_time_id' => $request->get('vacation_period_time_id'),
+            'vacation_measurement_id' => $request->get('vacation_measurement_id'),
+        ]);
+
+        return back();
     }
 
     /**

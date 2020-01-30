@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use App\SpecialVacation;
-use App\VacationType;
 use Illuminate\Http\Request;
 
-class SpecialVacationController extends Controller
+class userRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +14,7 @@ class SpecialVacationController extends Controller
      */
     public function index()
     {
-       // $specialVacation = SpecialVacation::all();
-
-       // dd(VacationType::find(1)->users()->get());
-
-     //  dd($specialVacation->where('user_id','=',1)->all());
-
-        return view('admin.specialVacations.index', [
-            'vacationTypes' => VacationType::all(),
-            'users' => User::all(),
-            'index' => 1,
-        ]);
+        //
     }
 
     /**
@@ -48,13 +35,7 @@ class SpecialVacationController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->get('vacation_id'), $request->get('user_id'), $request->get('amount'));
-
-        User::find($request->get('user_id'))
-            ->setSpecialVacation(
-                VacationType::Find($request->get('vacation_id')), $request->get('amount'));
-
-        return redirect(route('specialVacation.index'));
+        //
     }
 
     /**
