@@ -46,8 +46,8 @@
                             </td>
 
                             <td>
-                                <a href="{{route('shifts.addDaysForm',$shift->id)}}" class="btn btn-success">افزودن روز کاری</a>
-                                <a href="" class="btn btn-info">حذف روز کاری
+                                <a href="{{route('shifts.editDays',$shift->id)}}" class="btn btn-success">ویرایش</a>
+
                             </td>
 
                             <td>

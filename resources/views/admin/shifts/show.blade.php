@@ -27,7 +27,7 @@
                         <label for="title" class="text-danger"><span>روزهای کاری </span></label>
                         <br>
                         <br>
-                        @foreach($shift->days as $day)
+                        @foreach($days as $day)
                             <b>{{$day->label}}</b><br>
                             @foreach($day->getWorkTimes() as $time)
                                    شروع :{{$time->start}}

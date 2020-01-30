@@ -42,14 +42,15 @@ class ShiftController extends Controller
     public function show(Shift $shift)
     {
         return view('admin.shifts.show', [
-            'shift' => $shift->load('days'),
+            'shift' => $shift,
+            'days'=>$shift->days()->wherePivot('to',null)->get()
         ]);
     }
 
 
     public function addTimeForm(Shift $shift)
     {
-        $days = $shift->days()->get();
+        $days = $shift->getDay();
         return view('admin.shifts.addTime', compact('days', 'shift'));
 
     }
@@ -63,16 +64,25 @@ class ShiftController extends Controller
         return back();
     }
 
-    public function addDaysForm(Shift $shift)
+    public function editDays(Shift $shift)
     {
-        $days = Day::all()->diff($shift->days);
-        return view('admin.shifts.addDay', compact('shift', 'days'));
+        $currentDays = $shift->getDay();
+        $days = Day::all()->diff($currentDays);
+        return view('admin.shifts.editDay', compact('shift', 'days', 'currentDays'));
     }
 
     public function addDays(Request $request, Shift $shift)
     {
         $shift->days()->attach($request->days);
         session()->flash('flash_message', 'روزهای مورد نظر با موفقیت ثبت شدند');
+        return redirect(route('shifts.index'));
+
+    }
+
+    public function removeDays(Request $request, Shift $shift)
+    {
+        $dayShift = $shift->getPivotDay($request->days);
+        Shift::removeDays($dayShift);
         return redirect(route('shifts.index'));
 
     }
