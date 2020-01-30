@@ -43,7 +43,7 @@ class ShiftController extends Controller
     {
         return view('admin.shifts.show', [
             'shift' => $shift,
-            'days'=>$shift->days()->wherePivot('to',null)->get()
+            'days'=>$shift->getDay()
         ]);
     }
 
@@ -89,13 +89,15 @@ class ShiftController extends Controller
 
     public function edit(Shift $shift)
     {
-        $days = Day::all();
-        return view('admin.shifts.edit', compact('days', 'shift'));
+
+        return view('admin.shifts.edit', compact( 'shift'));
     }
 
     public function update(ShiftRequest $request, Shift $shift)
     {
-
+        $shift->update($request->validated());
+        Shift::showMessage('ویرایش با موفقیت انجام شد');
+        return redirect(route('shifts.index'));
 
     }
 

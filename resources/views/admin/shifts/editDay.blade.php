@@ -4,6 +4,7 @@
 @endsection
 
 @section('content')
+    <a style="direction: ltr" href="{{route('shifts.index')}}" class="btn btn-danger">بازگشت</a>
     <div class="row">
         <div class="col-md-5">
             <div class="box box-primary">
@@ -55,7 +56,7 @@
 
                     <div  class="box-footer">
                         <button type="submit"  class="btn btn-primary">حذف</button>
-                        <a style="margin-right: 73.7%" href="{{route('shifts.index')}}" class="btn btn-danger">بازگشت</a>
+
                     </div>
 
                 </form>
