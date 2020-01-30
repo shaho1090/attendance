@@ -27,6 +27,7 @@ class CreateVacationTypesTable extends Migration
                 ->references('id')->on('vacation_measurement');
         });
 
+
     }
 
     /**

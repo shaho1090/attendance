@@ -21,6 +21,7 @@
                     <thead>
                     <tr>
                         <th>عنوان</th>
+                        <th>انتخاب شیفت کاری</th>
                         <th>تنظیمات</th>
                     </tr>
                     </thead>
@@ -28,6 +29,10 @@
                         <tr>
                             <td>
                                 {{$unit->title}}
+                            </td>
+                            <td>
+                                <a href="{{route('units.addShiftForm',$unit->id)}}" class="btn btn-success">انتخاب
+                                </a>
                             </td>
 
                             <td>

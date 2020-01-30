@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Shift extends Model
@@ -24,48 +25,35 @@ class Shift extends Model
 
     public function days()
     {
-        return $this->hasMany(Day::class);
+        return $this->belongsToMany(Day::class, 'day_shift')->withPivot('id', 'from', 'to');
     }
 
-    public function Unit()
+    public function unit()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Unit::class, 'shift_unit')
+            ->withPivot('from', 'to');
     }
 
-    public static $days = [
-        [
-            'id' => 1,
-            'title' => 'Monday',
-            'faTitle' => 'دوشنبه'
-        ],
-        [
-            'id' => 2,
-            'title' => 'Tuesday',
-            'faTitle' => 'سه شنبه'
-        ],
-        [
-            'id' => 3,
-            'title' => 'Wednesday',
-            'faTitle' => 'چهارشنبه'
-        ],
-        [
-            'id' => 4,
-            'title' => 'Thursday',
-            'faTitle' => 'پنج شنبه'
-        ],
-        [
-            'id' => 5,
-            'title' => 'Friday',
-            'faTitle' => 'جمعه'
-        ],
-        [
-            'id' => 6,
-            'title' => 'Saturday',
-            'faTitle' => 'شنبه'
-        ], [
-            'id' => 7,
-            'title' => 'Sunday',
-            'faTitle' => 'یکشنبه'
-        ],
-    ];
+    public function workTimes()
+    {
+        return $this->hasManyThrough(WorkTime::class, DayShift::class, 'shift_id', 'day_shift_id');
+    }
+
+    public static function addWorkTime($start, $end, $day)
+    {
+        for ($counter = 1; $counter < sizeof($start) + 1; $counter++) {
+            $day->workTimes()->create([
+                'start' => $start[$counter],
+                'end' => $end[$counter]
+            ]);
+        }
+        session()->flash('flash_message', 'زمان های مورد نظر با موفقیت ثبت شدند');
+    }
+
+
+
+
+
+
+
 }

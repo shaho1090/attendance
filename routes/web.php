@@ -12,17 +12,27 @@
 */
 
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::namespace('admin')->prefix('/admin')->group(function (){
-    Route::resource('units','UnitController');
-    Route::resource('shifts','ShiftController');
-    Route::resource('workTime','WorkTimeController');
+Route::namespace('admin')->prefix('/admin')->group(function () {
+
+    //**************Unit Route**************
+    Route::resource('units', 'UnitController');
+    Route::get('/units/addShiftForm/{unit}', 'UnitController@addShiftForm')->name('units.addShiftForm');
+    Route::post('/units/addShift/{unit}', 'UnitController@addShift')->name('units.addShift');
+
+    //**************Shift Route**************
+    Route::resource('shifts', 'ShiftController');
+    Route::get('/shift/addTimeForm/{shift}', 'ShiftController@addTimeForm')->name('shifts.addTimeForm');
+    Route::post('/shift/addWorkTime/{shift}', 'ShiftController@addWorkTime')->name('shifts.addWorkTime');
+    Route::get('/shift/editUnit/{shift}', 'ShiftController@editUnit')->name('shifts.editUnit');
+    Route::get('/shift/editTime/{shift}', 'ShiftController@editTime')->name('shifts.editTime');
+
+    //**************WorkTime Route**************
+    Route::resource('workTime', 'WorkTimeController');
+
 });
 
 Route::resource('users', 'admin\UsersController');

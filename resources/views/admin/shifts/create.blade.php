@@ -28,9 +28,9 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input name="day[]" value="{{$day['title']}}" type="checkbox"
+                                        <input name="days[]" value="{{$day->id}}" type="checkbox"
                                                id="day">
-                                        {{$day['faTitle']}}
+                                        {{$day->label}}
                                     </label>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">ایجاد</button>
-                        <a href="{{route('units.index')}}" class="btn btn-danger">بازگشت</a>
+                        <a href="{{route('shifts.index')}}" class="btn btn-danger">بازگشت</a>
                     </div>
 
                 </form>
